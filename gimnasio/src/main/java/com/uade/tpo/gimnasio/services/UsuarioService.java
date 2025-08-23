@@ -8,8 +8,10 @@ import java.util.List;
 public interface UsuarioService {
   Usuario registrarUsuario(Usuario usuario);
   Optional<Usuario> buscarPorEmail(String email);
+  Optional<Usuario> buscarPorId(Long id); // 🔥 nuevo
   List<Usuario> listarUsuarios();
   Usuario actualizarPerfil(Long id, Usuario datos);
 }
+
 
 

@@ -1,5 +1,4 @@
 package com.uade.tpo.gimnasio.dto.reservas;
 
-public record CrearReservaDTO(
-    Long claseId
-) {}
+public record ReservaCreateRequestDTO(Long usuarioId, Long claseId) {}
+

@@ -1,6 +1,3 @@
 package com.uade.tpo.gimnasio.dto.perfil;
 
-public record UpdatePerfilDTO(
-    String nombre,
-    String fotoUrl
-) {}
+public record PerfilUpdateRequestDTO(String nombre, String fotoUrl) {}

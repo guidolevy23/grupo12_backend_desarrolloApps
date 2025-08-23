@@ -33,6 +33,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public Optional<Usuario> buscarPorId(Long id) {
+        return usuarioRepository.findById(id);
+    }
+
+    @Override
     public Usuario actualizarPerfil(Long id, Usuario datos) {
         return usuarioRepository.findById(id).map(u -> {
             u.setNombre(datos.getNombre());
