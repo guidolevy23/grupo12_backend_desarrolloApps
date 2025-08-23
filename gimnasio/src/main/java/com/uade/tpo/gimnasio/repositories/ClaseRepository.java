@@ -10,4 +10,5 @@ import java.util.List;
 public interface ClaseRepository extends JpaRepository<Clase, Long> {
 
     List<Clase> findBySedeAndDisciplina(Sede sede, Disciplina disciplina);
+
 }

@@ -20,7 +20,6 @@ public class UsuarioController {
         this.modelMapper = modelMapper;
     }
 
-    // Obtener datos del perfil de un usuario
     @GetMapping("/{id}")
     public ResponseEntity<PerfilResponseDTO> getUsuario(@PathVariable Long id) {
         return usuarioService.buscarPorId(id)
@@ -28,7 +27,6 @@ public class UsuarioController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Actualizar perfil de un usuario
     @PutMapping("/{id}")
     public ResponseEntity<PerfilResponseDTO> updateUsuario(
             @PathVariable Long id,
@@ -38,6 +36,8 @@ public class UsuarioController {
         return ResponseEntity.ok(modelMapper.map(usuarioActualizado, PerfilResponseDTO.class));
     }
 }
+
+
 
 
 
