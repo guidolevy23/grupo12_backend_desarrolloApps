@@ -1,6 +1,8 @@
 package com.uade.tpo.gimnasio.services.impl;
 
+import com.uade.tpo.gimnasio.models.entity.Disciplina;
 import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Clase;
+import com.uade.tpo.gimnasio.models.entity.Sede;
 import com.uade.tpo.gimnasio.repositories.ClaseRepository;
 import com.uade.tpo.gimnasio.services.ClaseService;
 import lombok.Getter;
@@ -33,7 +35,7 @@ public class ClaseServiceImpl implements ClaseService {
     }
 
     @Override
-    public List<Clase> filtrarClases(String sede, String disciplina) {
+    public List<Clase> filtrarClases(Sede sede, Disciplina disciplina) {
         return claseRepository.findBySedeAndDisciplina(sede, disciplina);
     }
 }

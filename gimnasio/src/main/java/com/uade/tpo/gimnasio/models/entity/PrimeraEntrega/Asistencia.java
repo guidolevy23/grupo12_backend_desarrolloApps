@@ -19,6 +19,13 @@ public class Asistencia {
     @ManyToOne(optional = false) @NotNull
     private Turno turno;
 
+    @ManyToOne
+    @JoinColumn(name = "clase_id", nullable = false)
+    private Clase clase;
+
     @Column(nullable = false)
     private Instant checkInAt;
+
+
+
 }

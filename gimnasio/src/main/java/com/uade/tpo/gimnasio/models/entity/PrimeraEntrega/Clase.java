@@ -40,4 +40,7 @@ public class Clase {
 
     @Column(nullable = false)
     private Integer duracionMin; // ejemplo: 60
+
+
+
 }

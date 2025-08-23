@@ -27,6 +27,7 @@ public class Usuario {
     @Column(nullable = false)
     private Rol rol = Rol.SOCIO;
 
+    @OneToMany(mappedBy = "usuario")
     private List<Reserva> reservas;
 
     public enum Rol { SOCIO, STAFF, ADMIN }

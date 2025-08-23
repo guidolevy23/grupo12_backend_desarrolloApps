@@ -13,8 +13,14 @@ public class Reserva {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false) @NotNull
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
+
+
+    @ManyToOne
+    @JoinColumn(name = "clase_id", nullable = false)
+    private Clase clase;
 
     @ManyToOne(optional = false) @NotNull
     private Turno turno;
