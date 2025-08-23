@@ -1,7 +1,7 @@
 package com.uade.tpo.gimnasio.repositories;
 
-import com.uade.tpo.gimnasio.models.entity.*;
-import com.uade.tpo.gimnasio.models.entity.Reserva.Estado;
+import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Reserva;
+import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Reserva.Estado;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Collection;
@@ -14,4 +14,6 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
     // para próximas reservas del usuario (ej: estado CONFIRMADA)
     List<Reserva> findByUsuario_IdAndEstadoOrderByIdDesc(Long usuarioId, Estado estado);
+
+    List<Reserva> findByUsuarioId(Long usuarioId);
 }

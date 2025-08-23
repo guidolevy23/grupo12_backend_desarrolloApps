@@ -1,6 +1,7 @@
 package com.uade.tpo.gimnasio.repositories;
 
 import com.uade.tpo.gimnasio.models.entity.*;
+import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Turno;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.Instant;

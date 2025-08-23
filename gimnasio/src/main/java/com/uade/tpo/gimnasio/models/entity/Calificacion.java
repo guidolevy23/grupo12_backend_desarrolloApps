@@ -1,5 +1,7 @@
 package com.uade.tpo.gimnasio.models.entity;
 
+import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Turno;
+import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

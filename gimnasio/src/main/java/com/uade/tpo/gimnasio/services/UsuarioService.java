@@ -1,11 +1,15 @@
 package com.uade.tpo.gimnasio.services;
 
-import com.uade.tpo.gimnasio.models.entity.Usuario;
+import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Usuario;
+
+import java.util.Optional;
+import java.util.List;
 
 public interface UsuarioService {
-  /** Obtiene el perfil del usuario autenticado. */
-  Usuario getPerfil(Long userId);
-
-  /** Actualiza nombre/foto del perfil. */
-  Usuario updatePerfil(Long userId, String nombre, String fotoUrl);
+  Usuario registrarUsuario(Usuario usuario);
+  Optional<Usuario> buscarPorEmail(String email);
+  List<Usuario> listarUsuarios();
+  Usuario actualizarPerfil(Long id, Usuario datos);
 }
+
+

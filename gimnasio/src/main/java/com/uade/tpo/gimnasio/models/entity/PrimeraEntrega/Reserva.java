@@ -1,4 +1,4 @@
-package com.uade.tpo.gimnasio.models.entity;
+package com.uade.tpo.gimnasio.models.entity.PrimeraEntrega;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

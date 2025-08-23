@@ -1,6 +1,11 @@
 package com.uade.tpo.gimnasio.repositories;
 
-import com.uade.tpo.gimnasio.models.entity.*;
+import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Clase;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClaseRepository extends JpaRepository<Clase, Long> { }
+import java.util.List;
+
+public interface ClaseRepository extends JpaRepository<Clase, Long> {
+
+    List<Clase> findBySedeAndDisciplina(String sede, String disciplina);
+}

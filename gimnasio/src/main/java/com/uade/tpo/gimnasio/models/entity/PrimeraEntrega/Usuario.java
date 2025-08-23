@@ -1,9 +1,11 @@
-package com.uade.tpo.gimnasio.models.entity;
+package com.uade.tpo.gimnasio.models.entity.PrimeraEntrega;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -24,6 +26,8 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Rol rol = Rol.SOCIO;
+
+    private List<Reserva> reservas;
 
     public enum Rol { SOCIO, STAFF, ADMIN }
 }
