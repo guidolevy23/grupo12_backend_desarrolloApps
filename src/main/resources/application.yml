@@ -1,0 +1,36 @@
+spring:
+    application:
+        name: gimnasio
+
+    datasource:
+        url: jdbc:mysql://localhost:3306/gimnasio_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Argentina/Buenos_Aires
+        username: myuser
+        password: secret
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                format_sql: true
+                time_zone: America/Argentina/Buenos_Aires
+
+    jackson:
+        default-property-inclusion: NON_NULL
+        time-zone: America/Argentina/Buenos_Aires
+
+server:
+    port: 8080
+
+logging:
+    level:
+        root: INFO
+        org:
+            springframework:
+                web=INFO:
+            hibernate:
+                SQL: DEBUG
+
+debug: true
