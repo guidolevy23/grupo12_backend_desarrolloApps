@@ -35,9 +35,12 @@ public class AuthController {
     }
 
     @PostMapping("/verify-otp")
-    public ResponseEntity<AuthResponseDTO> verifyOtp(@RequestBody OtpVerifyRequestDTO request) {
-        // Lógica OTP mockeada
-        return ResponseEntity.ok(new AuthResponseDTO("Usuario autenticado con éxito", "fake-jwt-token"));
+    public ResponseEntity<ResultDto> verifyOtp(@RequestBody OtpDto request) {
+        boolean result = authService.validateOtp(request);
+        ResultDto dto = new ResultDto();
+        dto.setStatus(result ? "success" : "failure");
+        dto.setMessage(result ? "OTP verificado exitosamente" : "OTP inválido o expirado");
+        return ResponseEntity.ok(dto);
     }
 }
 

@@ -4,5 +4,14 @@ POST http://localhost:8080/api/auth/request-otp
 Content-Type: application/json
 
 {
-  "identifier": "alan.gagliero@gmail.com"
+  "identifier": "your-email@yourdomain.com"
+}
+
+###
+POST http://localhost:8080/api/auth/verify-otp
+Content-Type: application/json
+
+{
+  "identifier": "alan.gagliero@proton.me",
+  "otp": "415961"
 }
