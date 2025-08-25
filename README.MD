@@ -36,7 +36,7 @@ Esto iniciará un contenedor MySQL
 
 ## Stopping the Database
 
-To stop the MySQL container:
+hpp:
 
 ```sh
 docker compose -f compose.yml down

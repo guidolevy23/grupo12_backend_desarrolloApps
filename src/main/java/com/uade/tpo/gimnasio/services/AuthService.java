@@ -1,11 +1,8 @@
 package com.uade.tpo.gimnasio.services;
 
-
+import com.uade.tpo.gimnasio.dto.OtpDto;
 
 public interface AuthService {
-  /** Solicita/genera y envía un OTP al email. */
-  void requestOtp(String email);
 
-  /** Verifica el OTP y devuelve un access token (JWT o similar). */
-  String verifyOtp(String email, String otp);
+  boolean createAndSendOtp(OtpDto dto);
 }
