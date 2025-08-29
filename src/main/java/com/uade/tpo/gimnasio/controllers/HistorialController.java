@@ -3,12 +3,14 @@ package com.uade.tpo.gimnasio.controllers;
 import com.uade.tpo.gimnasio.dto.historial.AsistenciaResponseDTO;
 import com.uade.tpo.gimnasio.dto.historial.HistorialFilterRequestDTO;
 import com.uade.tpo.gimnasio.services.AsistenciaService;
-import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
@@ -16,19 +18,66 @@ import java.util.List;
 public class HistorialController {
 
     private final AsistenciaService asistenciaService;
-    private final ModelMapper modelMapper;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    public HistorialController(AsistenciaService asistenciaService, ModelMapper modelMapper) {
+    public HistorialController(AsistenciaService asistenciaService) {
         this.asistenciaService = asistenciaService;
-        this.modelMapper = modelMapper;
+    }
+
+    @GetMapping("/{usuarioId}")
+    public ResponseEntity<List<AsistenciaResponseDTO>> obtenerHistorial(@PathVariable Long usuarioId) {
+        if (usuarioId == null || usuarioId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        
+        List<AsistenciaResponseDTO> historial = asistenciaService.historialPorUsuario(usuarioId)
+                .stream()
+                .map(this::mapToResponseDTO)
+                .toList();
+        
+        return ResponseEntity.ok(historial);
     }
 
     @PostMapping("/filtrar")
-    public List<AsistenciaResponseDTO> historial(@RequestBody HistorialFilterRequestDTO filtro) {
-        return asistenciaService.historialPorUsuario(filtro.usuarioId())
+    public ResponseEntity<List<AsistenciaResponseDTO>> historialFiltrado(@RequestBody HistorialFilterRequestDTO filtro) {
+        if (filtro.usuarioId() == null || filtro.usuarioId() <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        
+        Instant fechaInicio = null;
+        Instant fechaFin = null;
+        
+        try {
+            if (filtro.fechaInicio() != null && !filtro.fechaInicio().isEmpty()) {
+                fechaInicio = Instant.parse(filtro.fechaInicio());
+            }
+            if (filtro.fechaFin() != null && !filtro.fechaFin().isEmpty()) {
+                fechaFin = Instant.parse(filtro.fechaFin());
+            }
+        } catch (DateTimeParseException e) {
+            return ResponseEntity.badRequest().build();
+        }
+        
+        List<AsistenciaResponseDTO> historial = asistenciaService.historialPorUsuarioConFiltros(filtro.usuarioId(), fechaInicio, fechaFin)
                 .stream()
-                .map(a -> modelMapper.map(a, AsistenciaResponseDTO.class))
+                .map(this::mapToResponseDTO)
                 .toList();
+        
+        return ResponseEntity.ok(historial);
+    }
+
+    private AsistenciaResponseDTO mapToResponseDTO(com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Asistencia asistencia) {
+        LocalDateTime fechaLocal = LocalDateTime.ofInstant(asistencia.getCheckInAt(), ZoneId.systemDefault());
+        String fechaFormateada = fechaLocal.format(DATE_FORMATTER);
+        
+        return new AsistenciaResponseDTO(
+            asistencia.getId(),
+            asistencia.getClase().getDisciplina().getNombre(),
+            asistencia.getClase().getSede().getNombre(),
+            fechaFormateada,
+            asistencia.getClase().getDuracionMin(),
+            asistencia.getClase().getProfesor()
+        );
     }
 }
 

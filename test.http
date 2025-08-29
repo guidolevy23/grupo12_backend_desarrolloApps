@@ -15,3 +15,29 @@ Content-Type: application/json
   "identifier": "alan.gagliero@proton.me",
   "otp": "415961"
 }
+
+###
+# Obtener historial completo de un usuario
+GET http://localhost:8080/api/historial/1
+
+###
+# Filtrar historial por rango de fechas
+POST http://localhost:8080/api/historial/filtrar
+Content-Type: application/json
+
+{
+  "usuarioId": 1,
+  "fechaInicio": "2024-01-01T00:00:00Z",
+  "fechaFin": "2024-12-31T23:59:59Z"
+}
+
+###
+# Filtrar historial del último mes
+POST http://localhost:8080/api/historial/filtrar
+Content-Type: application/json
+
+{
+  "usuarioId": 1,
+  "fechaInicio": "2024-11-01T00:00:00Z",
+  "fechaFin": "2024-11-30T23:59:59Z"
+}
