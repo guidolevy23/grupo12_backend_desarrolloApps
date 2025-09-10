@@ -14,5 +14,5 @@ import org.springframework.data.rest.core.annotation.RestResource;
 public interface CourseRepository extends CrudRepository<Course, Long>, PagingAndSortingRepository<Course, Long> {
 
     @RestResource(path = "byName", rel = "byName")
-    Page<Course> findByNameLike(@Param("name") String name, Pageable p);
+    Page<Course> findByNameIsContaining(@Param("name") String name, Pageable p);
 }
