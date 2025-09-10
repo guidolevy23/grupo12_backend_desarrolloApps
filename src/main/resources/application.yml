@@ -3,17 +3,18 @@ spring:
         name: gimnasio
 
     datasource:
-        url: jdbc:mysql://localhost:3306/gimnasio_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Argentina/Buenos_Aires
+        url: jdbc:mysql://localhost:3306/gimnasio_db
         username: myuser
         password: secret
         driver-class-name: com.mysql.cj.jdbc.Driver
-
     jpa:
         show-sql: true
         hibernate:
             ddl-auto: update
+        defer-datasource-initialization: true
         properties:
             hibernate:
+                dialect: org.hibernate.dialect.MySQLDialect
                 format_sql: true
                 time_zone: America/Argentina/Buenos_Aires
 

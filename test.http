@@ -15,6 +15,9 @@ Content-Type: application/json
   "identifier": "alan.gagliero@proton.me",
   "otp": "415961"
 }
+###
+GET http://localhost:8080/api/clases
+Content-Type: application/json
 
 ###
 # Obtener historial completo de un usuario
@@ -41,3 +44,12 @@ Content-Type: application/json
   "fechaInicio": "2024-11-01T00:00:00Z",
   "fechaFin": "2024-11-30T23:59:59Z"
 }
+
+### Courses all
+GET http://localhost:8080/courses?size=5
+Content-Type: application/json
+
+### Courses by name
+GET http://localhost:8080/courses/search/byName?name=Yoga para Principiantes&size=5
+Content-Type: application/json
+
