@@ -1,5 +1,6 @@
 package com.uade.tpo.gimnasio.models.entity.PrimeraEntrega;
 
+import com.uade.tpo.gimnasio.models.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -14,7 +15,7 @@ public class Asistencia {
     private Long id;
 
     @ManyToOne(optional = false) @NotNull
-    private Usuario usuario;
+    private User usuario;
 
     @ManyToOne(optional = false) @NotNull
     private Turno turno;

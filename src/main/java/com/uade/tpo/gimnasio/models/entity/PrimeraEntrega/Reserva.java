@@ -1,5 +1,6 @@
 package com.uade.tpo.gimnasio.models.entity.PrimeraEntrega;
 
+import com.uade.tpo.gimnasio.models.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -15,7 +16,7 @@ public class Reserva {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+    private User usuario;
 
 
     @ManyToOne

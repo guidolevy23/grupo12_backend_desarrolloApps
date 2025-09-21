@@ -56,3 +56,7 @@ VALUES (
             '2025-09-18 19:00:00',
             '2025-09-18 20:00:00'
         );
+
+REPLACE INTO users (id, email, password, `name`, photo_url, `role`)
+VALUES
+  (1, 'admin@root.com', '$2a$10$WMAB9OwhzQS8jCl8mhVHf.H0H43vWH80wNvesuaZM1kMHA2j0fNyK', 'Admin User', '', 'ADMIN');

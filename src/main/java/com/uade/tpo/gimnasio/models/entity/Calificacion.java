@@ -1,7 +1,6 @@
 package com.uade.tpo.gimnasio.models.entity;
 
 import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Turno;
-import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -18,7 +17,7 @@ public class Calificacion {
     private Long id;
 
     @ManyToOne(optional = false)
-    private Usuario usuario;
+    private User usuario;
 
     @ManyToOne(optional = false)
     private Turno turno;
