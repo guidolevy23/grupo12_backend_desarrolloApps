@@ -1,3 +1,14 @@
+###
+# Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+###
 
 
 POST http://localhost:8080/api/auth/request-otp
@@ -38,6 +49,7 @@ Content-Type: application/json
 # Filtrar historial del último mes
 POST http://localhost:8080/api/historial/filtrar
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1ODQ3Mzc3NiwiZXhwIjoxNzU4NTYwMTc2fQ.WvZZM5eLnBi3GurbkagOb-gIVNwvooeiFSEqbVYmUfg
 
 {
   "usuarioId": 1,
@@ -46,10 +58,22 @@ Content-Type: application/json
 }
 
 ### Courses all
-GET http://localhost:8080/courses?size=5
+GET http://localhost:8080/api/courses?size=5
 Content-Type: application/json
 
 ### Courses by name
-GET http://localhost:8080/courses/search/byName?name=CrossFit&size=5
+GET http://localhost:8080/api/courses/search/byName?name=CrossFit&size=5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1ODQ3NDA5NCwiZXhwIjoxNzU4NTYwNDk0fQ.QbIwndcT2ZSz7dJdfg7oLWVUdB1VOPsXGfazslrcth8
+
+###
+# Login
+POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+###
