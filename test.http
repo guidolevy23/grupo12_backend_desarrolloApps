@@ -74,8 +74,8 @@ POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "username": "admin@teastt.com",
-  "password": "admin",
+  "username": "user@email.com",
+  "password": "pepe1234",
   "name": "Alan"
 }
 
