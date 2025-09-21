@@ -64,7 +64,7 @@ Content-Type: application/json
 ### Courses by name
 GET http://localhost:8080/api/courses/search/byName?name=CrossFit&size=5
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOifaUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc1ODQ3OTU0MiwiZXhwIjoxNzU4NTY1OTQyfQ.qVQxVSSF-WbZ2rQevhTPvAXNj3SDV4-hFWySOI-eIWI
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc1ODQ5NTA5NCwiZXhwIjoxNzU4NTgxNDk0fQ.XoBxl3ZsR-fqAZkgZQ10S9ovbqT6QvRYE_UCi6HkEFk
 
 ###
 
