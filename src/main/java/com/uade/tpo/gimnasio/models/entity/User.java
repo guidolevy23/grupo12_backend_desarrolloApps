@@ -1,5 +1,6 @@
-package com.uade.tpo.gimnasio.models.entity.PrimeraEntrega;
+package com.uade.tpo.gimnasio.models.entity;
 
+import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Reserva;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -8,9 +9,9 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "users")
 @Getter @Setter @NoArgsConstructor
-public class Usuario {
+public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,16 +20,18 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String nombre;
+    private String password;
 
-    private String fotoUrl;
+    private String name;
+
+    private String photoUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Rol rol = Rol.SOCIO;
+    private Role role;
 
     @OneToMany(mappedBy = "usuario")
     private List<Reserva> reservas;
 
-    public enum Rol { SOCIO, STAFF, ADMIN }
+    public enum Role { USER, ADMIN }
 }

@@ -32,13 +32,6 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    AuthService authService(OtpService otpService,
-                            EmailService emailService,
-                            @Qualifier("otpTemplate") SimpleMailMessage templateMessage) {
-        return new AuthServiceImpl(otpService, emailService, templateMessage);
-    }
-
-    @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
