@@ -93,3 +93,17 @@ Content-Type: application/json
 GET http://localhost:8080/api/users/me
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc1ODU0NTE4MiwiZXhwIjoxNzU4NjMxNTgyfQ.BMxgaxRpyT-EBFr1kFQejdlkp5ap8i-kh4OEytzjK-o
+
+### Update an user
+PUT http://localhost:8080/api/users/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc1ODU0NTE4MiwiZXhwIjoxNzU4NjMxNTgyfQ.BMxgaxRpyT-EBFr1kFQejdlkp5ap8i-kh4OEytzjK-o
+
+{
+  "id": 1,
+  "email": "admin@root.com",
+  "password": "$2a$10$WMAB9OwhzQS8jCl8mhVHf.H0H43vWH80wNvesuaZM1kMHA2j0fNyK",
+  "name": "Pepe",
+  "photoUrl": "",
+  "role": "ADMIN"
+}
