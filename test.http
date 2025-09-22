@@ -88,4 +88,8 @@ Content-Type: application/json
   "password": "admin"
 }
 
-###
+############# User API
+### Current Logged user
+GET http://localhost:8080/api/users/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc1ODU0NTE4MiwiZXhwIjoxNzU4NjMxNTgyfQ.BMxgaxRpyT-EBFr1kFQejdlkp5ap8i-kh4OEytzjK-o
