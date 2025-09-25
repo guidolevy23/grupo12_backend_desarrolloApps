@@ -1,47 +1,49 @@
 spring:
-    application:
-        name: gimnasio
+  application:
+    name: gimnasio
 
-    datasource:
-        url: jdbc:mysql://localhost:3306/gimnasio_db
-        username: root
-        password: admin
-        driver-class-name: com.mysql.cj.jdbc.Driver
-    jpa:
-        show-sql: true
-        hibernate:
-            ddl-auto: update
-        defer-datasource-initialization: true
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.MySQLDialect
-                format_sql: true
-                time_zone: America/Argentina/Buenos_Aires
+  datasource:
+    url: jdbc:mysql://localhost:3306/gimnasio_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Argentina/Buenos_Aires
+    username: myuser
+    password: secret
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
-    jackson:
-        default-property-inclusion: NON_NULL
-        time-zone: America/Argentina/Buenos_Aires
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        time_zone: America/Argentina/Buenos_Aires
 
-    mail:
-        host: ${EMAIL_HOST:localhost}
-        port: 587
-        username: ${EMAIL_USERNAME:test@example.com}
-        password: ${EMAIL_PASSWORD:password}
-        properties.mail.smtp.auth: true
-        properties.mail.smtp.starttls.enable: true
+  jackson:
+    default-property-inclusion: NON_NULL
+    time-zone: America/Argentina/Buenos_Aires
+
+  mail:
+    host: localhost
+    port: 1025
+    username: test@example.com
+    password: password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 server:
-    port: 8080
-    servlet:
-        context-path: /api
+  port: 8080
+  servlet:
+    context-path: /api
 
 logging:
-    level:
-        root: INFO
-        org:
-            springframework:
-                web=INFO:
-            hibernate:
-                SQL: DEBUG
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
 
 debug: true
