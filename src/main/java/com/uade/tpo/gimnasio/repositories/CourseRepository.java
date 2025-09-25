@@ -8,9 +8,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @PreAuthorize("hasRole('ADMIN')")
 @RepositoryRestResource(collectionResourceRel = "courses", path = "courses")
@@ -31,4 +33,18 @@ public interface CourseRepository extends CrudRepository<Course, Long>, PagingAn
             @Param("end") LocalDateTime end,
             Pageable p
     );
+
+
+    List<Course> findByStartsAtBetween(
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end
+    );
+
+        // Buscar por sede (branch)
+    @RestResource(path = "byBranch", rel = "byBranch")
+    Page<Course> findByBranchIsContainingIgnoreCase(
+            @Param("branch") String branch,
+            Pageable p
+    );
+
 }
