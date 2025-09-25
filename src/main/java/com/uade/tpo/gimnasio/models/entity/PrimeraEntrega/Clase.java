@@ -28,8 +28,6 @@ public class Clase {
     @NotBlank @Column(nullable = false)
     private String profesor;
 
-    private int cupo;
-
     private LocalDateTime fechaHora;
 
     @OneToMany(mappedBy = "clase")

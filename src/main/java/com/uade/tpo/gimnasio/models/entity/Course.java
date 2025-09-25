@@ -26,9 +26,6 @@ public class Course {
  @NotNull
     private String branch; // sede del gimnasio (ej: Palermo, Belgrano)
 
-
-
-
     @NotBlank
     @NotNull
     private String professor;
