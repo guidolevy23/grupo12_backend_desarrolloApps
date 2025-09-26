@@ -10,5 +10,6 @@ public interface AuthService {
 
   LoginResponse login(LoginRequest request);
   RegisterResponse register(RegisterRequest request);
+  void requestOtp(String email);
   boolean validate(OtpDto otpDto);
 }

@@ -47,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByEmail(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         if (!user.isValidated()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not validated");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not validated");
         }
         return new LoginResponse(jwtUtil.generateToken(authentication.getName()));
     }
@@ -62,16 +62,25 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(request.password()));
         user.setRole(User.Role.USER);
         user.setValidated(false);
-        User savedUser = userRepository.save(user);
-        otpService.createAndSend(savedUser);
+        userRepository.save(user);
         return new RegisterResponse("User registered successfully!");
     }
 
     @Override
-    public boolean validate(OtpDto otpDto) {
-        User user = userRepository
-                .findByEmail(otpDto.email())
+    public void requestOtp(String email) {
+        User user = getUserByEmail(email);
+        otpService.createAndSend(user);
+    }
+
+    private User getUserByEmail(String email) {
+        return userRepository
+                .findByEmail(email)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+    }
+
+    @Override
+    public boolean validate(OtpDto otpDto) {
+        User user = getUserByEmail(otpDto.email());
         boolean ok = otpService.validate(user, otpDto.otp());
         if (ok) {
             user.setValidated(true);
