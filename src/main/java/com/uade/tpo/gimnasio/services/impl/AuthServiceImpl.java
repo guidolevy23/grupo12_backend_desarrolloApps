@@ -1,5 +1,6 @@
 package com.uade.tpo.gimnasio.services.impl;
 
+import com.uade.tpo.gimnasio.dto.OtpDto;
 import com.uade.tpo.gimnasio.dto.auth.LoginRequest;
 import com.uade.tpo.gimnasio.dto.auth.LoginResponse;
 import com.uade.tpo.gimnasio.dto.auth.RegisterRequest;
@@ -8,6 +9,7 @@ import com.uade.tpo.gimnasio.models.entity.User;
 import com.uade.tpo.gimnasio.repositories.UserRepository;
 import com.uade.tpo.gimnasio.security.JwtUtil;
 import com.uade.tpo.gimnasio.services.AuthService;
+import com.uade.tpo.gimnasio.services.OtpService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,15 +25,18 @@ public class AuthServiceImpl implements AuthService {
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final OtpService otpService;
 
     public AuthServiceImpl(AuthenticationManager authenticationManager,
                            JwtUtil jwtUtil,
                            PasswordEncoder passwordEncoder,
-                           UserRepository userRepository) {
+                           UserRepository userRepository,
+                           OtpService otpService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.otpService = otpService;
     }
 
     @Override
@@ -39,6 +44,11 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.username(), request.password())
         );
+        User user = userRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        if (!user.isValidated()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not validated");
+        }
         return new LoginResponse(jwtUtil.generateToken(authentication.getName()));
     }
 
@@ -51,8 +61,22 @@ public class AuthServiceImpl implements AuthService {
         user.setEmail(request.username());
         user.setPassword(passwordEncoder.encode(request.password()));
         user.setRole(User.Role.USER);
-        userRepository.save(user);
-
+        user.setValidated(false);
+        User savedUser = userRepository.save(user);
+        otpService.createAndSend(savedUser);
         return new RegisterResponse("User registered successfully!");
+    }
+
+    @Override
+    public boolean validate(OtpDto otpDto) {
+        User user = userRepository
+                .findByEmail(otpDto.email())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        boolean ok = otpService.validate(user, otpDto.otp());
+        if (ok) {
+            user.setValidated(true);
+            userRepository.save(user);
+        }
+        return ok;
     }
 }

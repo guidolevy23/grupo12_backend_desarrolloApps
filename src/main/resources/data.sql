@@ -33,8 +33,8 @@ VALUES
   (20, 'Stretch & Relax', 'Clase de estiramiento profundo y relajación', 'Claudia Vega', 'Sucursal Norte', '2025-10-03 08:00:00', '2025-10-03 09:00:00');
   
 
-REPLACE INTO users (id, email, password, `name`, photo_url, `role`)
+REPLACE INTO users (id, email, password, `name`, photo_url, `role`, validated)
 VALUES
   (1, 'admin@root.com',
    '$2a$10$WMAB9OwhzQS8jCl8mhVHf.H0H43vWH80wNvesuaZM1kMHA2j0fNyK',
-   'Admin User', '', 'ADMIN');
+   'Admin User', '', 'ADMIN', true);

@@ -24,10 +24,10 @@ spring:
     time-zone: America/Argentina/Buenos_Aires
 
   mail:
-    host: localhost
-    port: 1025
-    username: test@example.com
-    password: password
+    host: ${EMAIL_HOST:localhost}
+    port: 587
+    username: ${EMAIL_USERNAME:test@example.com}
+    password: ${EMAIL_PASSWORD:pass}
     properties:
       mail:
         smtp:

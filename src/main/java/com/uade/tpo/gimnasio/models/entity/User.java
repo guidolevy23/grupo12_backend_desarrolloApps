@@ -36,6 +36,8 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    private boolean validated;
+
     @OneToMany(mappedBy = "usuario")
     private List<Reserva> reservas;
 

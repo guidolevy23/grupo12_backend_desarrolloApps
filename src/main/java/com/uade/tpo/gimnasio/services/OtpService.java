@@ -1,10 +1,9 @@
 package com.uade.tpo.gimnasio.services;
 
-import com.uade.tpo.gimnasio.dto.OtpDto;
-import com.uade.tpo.gimnasio.models.entity.Otp;
+import com.uade.tpo.gimnasio.models.entity.User;
 
 public interface OtpService {
 
-    Otp create(OtpDto dto);
-    boolean validate(OtpDto dto);
+    void createAndSend(User user);
+    boolean validate(User user, String code);
 }

@@ -74,7 +74,7 @@ POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "username": "user@email.com",
+  "username": "alan.gagliero@proton.me",
   "password": "pepe1234",
   "name": "Alan"
 }
@@ -84,24 +84,33 @@ POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "admin@root.com",
-  "password": "admin"
+  "username": "alan.gagliero@proton.me",
+  "password": "pepe1234"
+}
+
+### Login
+POST http://localhost:8080/api/auth/otp
+Content-Type: application/json
+
+{
+  "email": "alan.gagliero@proton.me",
+  "otp": "429953"
 }
 
 ############# User API
 ### Current Logged user
 GET http://localhost:8080/api/users/me
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc1ODU0NTE4MiwiZXhwIjoxNzU4NjMxNTgyfQ.BMxgaxRpyT-EBFr1kFQejdlkp5ap8i-kh4OEytzjK-o
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGFuLmdhZ2xpZXJvQHByb3Rvbi5tZSIsImlhdCI6MTc1ODg4ODExNCwiZXhwIjoxNzU4OTc0NTE0fQ.4TTfi5x6qxMQJMhdPk5KPlD2XpgFM7wVVklhmVJm85Q
 
 ### Update an user
-PUT http://localhost:8080/api/users/1
+PATCH http://localhost:8080/api/users/4
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc1ODU0NTE4MiwiZXhwIjoxNzU4NjMxNTgyfQ.BMxgaxRpyT-EBFr1kFQejdlkp5ap8i-kh4OEytzjK-o
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGFuLmdhZ2xpZXJvQHByb3Rvbi5tZSIsImlhdCI6MTc1ODg4ODExNCwiZXhwIjoxNzU4OTc0NTE0fQ.4TTfi5x6qxMQJMhdPk5KPlD2XpgFM7wVVklhmVJm85Q
 
 {
-  "id": 1,
-  "email": "admin@root.com",
+
+  "email": "alan.gagliero@proton.me",
   "password": "$2a$10$WMAB9OwhzQS8jCl8mhVHf.H0H43vWH80wNvesuaZM1kMHA2j0fNyK",
   "name": "Pepe",
   "photoUrl": "",
