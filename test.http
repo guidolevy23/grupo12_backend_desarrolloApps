@@ -85,7 +85,7 @@ Content-Type: application/json
 
 {
   "username": "alan.gagliero@proton.me",
-  "password": "pepe1234"
+  "password": "test2"
 }
 
 ### Login

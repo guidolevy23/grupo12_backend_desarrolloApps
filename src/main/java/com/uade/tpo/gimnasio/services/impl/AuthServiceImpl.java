@@ -47,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByEmail(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         if (!user.isValidated()) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not validated");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "User not validated");
         }
         return new LoginResponse(jwtUtil.generateToken(authentication.getName()));
     }
