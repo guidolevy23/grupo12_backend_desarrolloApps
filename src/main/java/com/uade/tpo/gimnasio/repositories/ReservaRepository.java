@@ -16,4 +16,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     List<Reserva> findByUsuario_IdAndEstadoOrderByIdDesc(Long usuarioId, Estado estado);
 
     List<Reserva> findByUsuarioId(Long usuarioId);
+
+    List<Reserva> findByCourseId(Long courseId);
+    long countByCourseId(Long courseId);
 }

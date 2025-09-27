@@ -3,6 +3,7 @@ package com.uade.tpo.gimnasio.controllers;
 import com.uade.tpo.gimnasio.dto.reservas.ReservaCreateRequestDTO;
 import com.uade.tpo.gimnasio.dto.reservas.ReservaResponseDTO;
 import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Reserva;
+import com.uade.tpo.gimnasio.repositories.ReservaRepository;
 import com.uade.tpo.gimnasio.services.ReservaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,12 @@ public class ReservaController {
 
     private final ReservaService reservaService;
     private final ModelMapper modelMapper;
+    private final ReservaRepository reservaRepository;
 
-    public ReservaController(ReservaService reservaService, ModelMapper modelMapper) {
+    public ReservaController(ReservaService reservaService, ModelMapper modelMapper, ReservaRepository reservaRepository) {
         this.reservaService = reservaService;
         this.modelMapper = modelMapper;
+        this.reservaRepository = reservaRepository;
     }
 
     @PostMapping
@@ -41,6 +44,18 @@ public class ReservaController {
                 .stream()
                 .map(r -> modelMapper.map(r, ReservaResponseDTO.class))
                 .toList();
+    }
+
+    
+    // 🔹 Endpoints de prueba
+    @GetMapping("/byCourse/{courseId}")
+    public List<Reserva> getReservasByCourse(@PathVariable Long courseId) {
+        return reservaRepository.findByCourseId(courseId);
+    }
+
+    @GetMapping("/countByCourse/{courseId}")
+    public long countReservasByCourse(@PathVariable Long courseId) {
+        return reservaRepository.countByCourseId(courseId);
     }
 }
 

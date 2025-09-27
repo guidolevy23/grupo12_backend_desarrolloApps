@@ -47,4 +47,12 @@ public interface CourseRepository extends CrudRepository<Course, Long>, PagingAn
             Pageable p
     );
 
+    @RestResource(path = "cupos", rel = "cupos")
+default int getCuposDisponibles(@Param("id") Long id) {
+    return findById(id)
+            .map(Course::getCuposDisponibles)
+            .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
+}
+
+
 }

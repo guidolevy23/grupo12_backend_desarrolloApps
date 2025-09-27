@@ -1,5 +1,6 @@
 package com.uade.tpo.gimnasio.models.entity.PrimeraEntrega;
 
+import com.uade.tpo.gimnasio.models.entity.Course;
 import com.uade.tpo.gimnasio.models.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +8,8 @@ import lombok.*;
 
 @Entity
 @Table(name = "reservas",
-       uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id","turno_id"}))
+       uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id"}))
+
 @Getter @Setter @NoArgsConstructor
 public class Reserva {
 
@@ -18,13 +20,18 @@ public class Reserva {
     @JoinColumn(name = "usuario_id", nullable = false)
     private User usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
 
     @ManyToOne
-    @JoinColumn(name = "clase_id", nullable = false)
+    @JoinColumn(name = "clase_id", nullable = true)
     private Clase clase;
 
-    @ManyToOne(optional = false) @NotNull
+
+    @ManyToOne(optional = true) // o borrar esta relación si no la usás
     private Turno turno;
+
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
