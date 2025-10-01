@@ -36,35 +36,8 @@ public class Course {
 
     private LocalDateTime endsAt;
 
-    @Column(nullable = false)
-    private int cuposTotales;
 
-    @Column(nullable = false)
-    private int cuposDisponibles;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private EstadoCupo estadoCupo = EstadoCupo.DISPONIBLE;
-
-    // --- Enum EstadoCupo ---
-    public enum EstadoCupo {
-        DISPONIBLE,
-        LLENO,
-        CERRADO
-    }
-
-    // --- Métodos auxiliares ---
-    public void actualizarEstadoCupo() {
-        if (cuposDisponibles <= 0) {
-            this.estadoCupo = EstadoCupo.LLENO;
-        } else if (cuposDisponibles > 0) {
-            this.estadoCupo = EstadoCupo.DISPONIBLE;
-        }
-    }
-
-    public boolean tieneCupos() {
-        return this.estadoCupo == EstadoCupo.DISPONIBLE && this.cuposDisponibles > 0;
-    }
+   
 
     // --- Getters & Setters ---
     public Long getId() {
