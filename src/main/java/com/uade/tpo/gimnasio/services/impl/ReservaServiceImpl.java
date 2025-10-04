@@ -32,13 +32,9 @@ public Reserva crearReserva(Reserva reserva) {
     Course course = courseRepository.findById(reserva.getCourse().getId())
             .orElseThrow(() -> new EntityNotFoundException("Curso no encontrado"));
 
-    if (!course.tieneCupos()) {
-        throw new IllegalStateException("No hay cupos disponibles en este curso.");
-    }
 
-    // 🔹 Decrementamos cupos
-    course.setCuposDisponibles(course.getCuposDisponibles() - 1);
-    course.actualizarEstadoCupo();
+
+
     courseRepository.save(course);
 
     // Asociamos el Course cargado a la reserva
@@ -58,9 +54,7 @@ public void cancelarReserva(Long id) {
 
     Course course = reserva.getCourse();
 
-    // 🔹 Incremento cupos al cancelar
-    course.setCuposDisponibles(course.getCuposDisponibles() + 1);
-    course.actualizarEstadoCupo();
+  
     courseRepository.save(course);
 
     reserva.setEstado(Reserva.Estado.CANCELADA);

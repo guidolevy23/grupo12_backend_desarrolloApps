@@ -96,29 +96,6 @@ public class Course {
         this.endsAt = endsAt;
     }
 
-    public int getCuposTotales() {
-        return cuposTotales;
-    }
 
-    public void setCuposTotales(int cuposTotales) {
-        this.cuposTotales = cuposTotales;
-        actualizarEstadoCupo();
-    }
 
-    public int getCuposDisponibles() {
-        return cuposDisponibles;
-    }
-
-    public void setCuposDisponibles(int cuposDisponibles) {
-        this.cuposDisponibles = cuposDisponibles;
-        actualizarEstadoCupo();
-    }
-
-    public EstadoCupo getEstadoCupo() {
-        return estadoCupo;
-    }
-
-    public void setEstadoCupo(EstadoCupo estadoCupo) {
-        this.estadoCupo = estadoCupo;
-    }
 }
