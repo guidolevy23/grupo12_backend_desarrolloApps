@@ -36,6 +36,7 @@ spring:
             enable: true
 
 server:
+  address: 0.0.0.0
   port: 8080
   servlet:
     context-path: /api
@@ -45,5 +46,6 @@ logging:
     root: INFO
     org.springframework.web: INFO
     org.hibernate.SQL: DEBUG
+
 
 debug: true
