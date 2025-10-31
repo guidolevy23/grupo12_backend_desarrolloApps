@@ -1,7 +1,6 @@
 package com.uade.tpo.gimnasio.controllers;
 
-import com.uade.tpo.gimnasio.dto.OtpDto;
-import com.uade.tpo.gimnasio.dto.ResultDto;
+
 import com.uade.tpo.gimnasio.models.entity.User;
 import com.uade.tpo.gimnasio.repositories.OtpRepository;
 import com.uade.tpo.gimnasio.repositories.UserRepository;
