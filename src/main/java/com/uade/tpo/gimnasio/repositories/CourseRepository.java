@@ -14,7 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN')")
 @RepositoryRestResource(collectionResourceRel = "courses", path = "courses")
 public interface CourseRepository extends CrudRepository<Course, Long>, PagingAndSortingRepository<Course, Long> {
 

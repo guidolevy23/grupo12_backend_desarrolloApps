@@ -20,7 +20,9 @@ import java.io.IOException;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
+    // Permitir acceso sin autenticación a /auth/** y /api/courses/**
     private final RequestMatcher unSecurePaths = new AntPathRequestMatcher("/auth/**");
+    private final RequestMatcher publicCourses = new AntPathRequestMatcher("/api/courses/**");
 
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
@@ -37,7 +39,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         final String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            unauthorized(response);
+            filterChain.doFilter(request, response);
             return;
         }
 
@@ -80,6 +82,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return unSecurePaths.matches(request);
+        // AntPathRequestMatcher normally compares against the servletPath (that may not include
+        // the context-path). Check both the matcher and the raw request URI so endpoints
+        // exposed under the app context path (e.g. /api) are correctly treated as public.
+        if (unSecurePaths.matches(request)) return true;
+        if (publicCourses.matches(request)) return true;
+
+        String uri = request.getRequestURI(); // includes context-path
+        String context = request.getContextPath() != null ? request.getContextPath() : "";
+        String pathWithoutContext = uri.startsWith(context) ? uri.substring(context.length()) : uri;
+        // Accept /courses and /courses/... (useful when context-path is /api)
+        if (pathWithoutContext.equals("/courses") || pathWithoutContext.startsWith("/courses/")) return true;
+
+        return false;
     }
 }
