@@ -3,6 +3,7 @@
 
 SET FOREIGN_KEY_CHECKS = 0;
 
+DELETE FROM reservas;   -- 🔥 AGREGAR ESTO
 DELETE FROM otp;
 DELETE FROM users;
 DELETE FROM course;

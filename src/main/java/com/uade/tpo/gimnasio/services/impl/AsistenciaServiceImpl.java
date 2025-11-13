@@ -1,6 +1,6 @@
 package com.uade.tpo.gimnasio.services.impl;
 
-import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Asistencia;
+import com.uade.tpo.gimnasio.models.entity.Asistencia;
 import com.uade.tpo.gimnasio.repositories.AsistenciaRepository;
 import com.uade.tpo.gimnasio.services.AsistenciaService;
 import org.springframework.stereotype.Service;

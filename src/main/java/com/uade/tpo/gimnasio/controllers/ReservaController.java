@@ -2,7 +2,9 @@ package com.uade.tpo.gimnasio.controllers;
 
 import com.uade.tpo.gimnasio.dto.reservas.ReservaCreateRequestDTO;
 import com.uade.tpo.gimnasio.dto.reservas.ReservaResponseDTO;
-import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Reserva;
+import com.uade.tpo.gimnasio.models.entity.Course;
+import com.uade.tpo.gimnasio.models.entity.Reserva;
+import com.uade.tpo.gimnasio.models.entity.User;
 import com.uade.tpo.gimnasio.repositories.ReservaRepository;
 import com.uade.tpo.gimnasio.services.ReservaService;
 import org.modelmapper.ModelMapper;
@@ -25,12 +27,24 @@ public class ReservaController {
         this.reservaRepository = reservaRepository;
     }
 
-    @PostMapping
-    public ResponseEntity<ReservaResponseDTO> crear(@RequestBody ReservaCreateRequestDTO dto) {
-        var reserva = modelMapper.map(dto, Reserva.class);
-        var guardada = reservaService.crearReserva(reserva);
-        return ResponseEntity.ok(modelMapper.map(guardada, ReservaResponseDTO.class));
-    }
+ @PostMapping
+public ResponseEntity<ReservaResponseDTO> crear(@RequestBody ReservaCreateRequestDTO dto) {
+
+    Reserva reserva = reservaService.crearReserva(dto.usuarioId(), dto.courseId());
+
+    ReservaResponseDTO response = new ReservaResponseDTO(
+            reserva.getId(),
+            reserva.getEstado().name(),
+            reserva.getCourse().getName(),
+            reserva.getCourse().getBranch(),
+            reserva.getCourse().getStartsAt() != null ? reserva.getCourse().getStartsAt().toString() : null
+    );
+
+    return ResponseEntity.ok(response);
+}
+
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> cancelar(@PathVariable Long id) {
@@ -39,12 +53,19 @@ public class ReservaController {
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public List<ReservaResponseDTO> listarPorUsuario(@PathVariable Long usuarioId) {
-        return reservaService.listarReservasPorUsuario(usuarioId)
-                .stream()
-                .map(r -> modelMapper.map(r, ReservaResponseDTO.class))
-                .toList();
-    }
+public List<ReservaResponseDTO> listarPorUsuario(@PathVariable Long usuarioId) {
+    return reservaService.listarReservasPorUsuario(usuarioId)
+            .stream()
+            .map(r -> new ReservaResponseDTO(
+                    r.getId(),
+                    r.getEstado().name(),
+                    r.getCourse().getName(),
+                    r.getCourse().getBranch(),
+                    r.getCourse().getStartsAt().toString()
+            ))
+            .toList();
+}
+
 
     
     // 🔹 Endpoints de prueba

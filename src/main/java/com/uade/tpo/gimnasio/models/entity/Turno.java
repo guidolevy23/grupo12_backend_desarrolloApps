@@ -1,4 +1,4 @@
-package com.uade.tpo.gimnasio.models.entity.PrimeraEntrega;
+package com.uade.tpo.gimnasio.models.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -10,11 +10,14 @@ import java.time.Instant;
 @Getter @Setter @NoArgsConstructor
 public class Turno {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false) @NotNull
-    private Clase clase;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "course_id", nullable = false)
+    @NotNull
+    private Course course; // 🔄 antes: Clase clase
 
     @NotNull
     @Column(nullable = false)
@@ -34,5 +37,8 @@ public class Turno {
     @Column(nullable = false)
     private Estado estado = Estado.ACTIVO;
 
-    public enum Estado { ACTIVO, CANCELADO }
+    public enum Estado {
+        ACTIVO,
+        CANCELADO
+    }
 }

@@ -1,7 +1,8 @@
 package com.uade.tpo.gimnasio.repositories;
 
-import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Asistencia;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.uade.tpo.gimnasio.models.entity.Asistencia;
 
 import java.time.Instant;
 import java.util.List;

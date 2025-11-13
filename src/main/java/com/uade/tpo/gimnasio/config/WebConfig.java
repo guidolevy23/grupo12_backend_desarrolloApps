@@ -14,7 +14,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**") // 👈 importante: matchea con tu context-path
-                        .allowedOrigins(
+                        .allowedOriginPatterns(
                                 "http://localhost:8081",
                                 "http://192.168.0.146:8081",
                                 "http://localhost:3000",

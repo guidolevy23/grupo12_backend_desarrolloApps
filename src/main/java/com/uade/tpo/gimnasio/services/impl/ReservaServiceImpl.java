@@ -1,14 +1,14 @@
 package com.uade.tpo.gimnasio.services.impl;
 
 import com.uade.tpo.gimnasio.models.entity.Course;
-import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Reserva;
+import com.uade.tpo.gimnasio.models.entity.Reserva;
 import com.uade.tpo.gimnasio.repositories.CourseRepository;
 import com.uade.tpo.gimnasio.repositories.ReservaRepository;
+import com.uade.tpo.gimnasio.repositories.UserRepository;
 import com.uade.tpo.gimnasio.services.ReservaService;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,55 +18,50 @@ public class ReservaServiceImpl implements ReservaService {
 
     private final ReservaRepository reservaRepository;
     private final CourseRepository courseRepository;
+    private final UserRepository userRepository; // ⚠ NECESARIO
 
     public ReservaServiceImpl(ReservaRepository reservaRepository,
-                              CourseRepository courseRepository) {
+                              CourseRepository courseRepository,
+                              UserRepository userRepository) {
         this.reservaRepository = reservaRepository;
         this.courseRepository = courseRepository;
+        this.userRepository = userRepository;
     }
 
-@Override
-@Transactional
-public Reserva crearReserva(Reserva reserva) {
-    // Traemos el Course vivo de la base
-    Course course = courseRepository.findById(reserva.getCourse().getId())
-            .orElseThrow(() -> new EntityNotFoundException("Curso no encontrado"));
+    @Override
+    @Transactional
+    public Reserva crearReserva(Long usuarioId, Long courseId) {
 
+        // Validar y traer usuario real
+        var usuario = userRepository.findById(usuarioId)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con ID " + usuarioId));
 
+        // Validar y traer curso real
+        var course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new EntityNotFoundException("Curso no encontrado con ID " + courseId));
 
+        // Crear reserva
+        Reserva reserva = new Reserva();
+        reserva.setUsuario(usuario);
+        reserva.setCourse(course);
 
-    courseRepository.save(course);
+        return reservaRepository.save(reserva);
+    }
 
-    // Asociamos el Course cargado a la reserva
-    reserva.setCourse(course);
+    @Override
+    @Transactional
+    public void cancelarReserva(Long id) {
+        var reserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Reserva no encontrada con ID " + id));
 
-    return reservaRepository.save(reserva);
-}
-
-
-
-
-@Override
-@Transactional
-public void cancelarReserva(Long id) {
-    Reserva reserva = reservaRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Reserva no encontrada"));
-
-    Course course = reserva.getCourse();
-
-  
-    courseRepository.save(course);
-
-    reserva.setEstado(Reserva.Estado.CANCELADA);
-    reservaRepository.save(reserva);
-}
-
+        reserva.setEstado(Reserva.Estado.CANCELADA);
+        reservaRepository.save(reserva);
+    }
 
     @Override
     public List<Reserva> listarReservasPorUsuario(Long usuarioId) {
         return reservaRepository.findByUsuarioId(usuarioId);
     }
-
-
 }
+
 
