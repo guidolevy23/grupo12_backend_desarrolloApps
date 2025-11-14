@@ -1,5 +1,9 @@
 package com.uade.tpo.gimnasio.dto.reservas;
 
-import com.uade.tpo.gimnasio.dto.catalogoClases.ClaseResponseDTO;
-
-public record ReservaResponseDTO(Long id, String estado, String clase, String sede, String horario) {}
+public record ReservaResponseDTO(
+        Long id,
+        String estado,
+        String courseName,   // 🔄 antes: clase
+        String branch,       // 🔄 antes: sede
+        String horario        // sigue igual
+) {}

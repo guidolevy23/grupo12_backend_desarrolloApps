@@ -1,8 +1,9 @@
 package com.uade.tpo.gimnasio.services;
 
-import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Asistencia;
 import java.time.Instant;
 import java.util.List;
+
+import com.uade.tpo.gimnasio.models.entity.Asistencia;
 
 
 public interface AsistenciaService {

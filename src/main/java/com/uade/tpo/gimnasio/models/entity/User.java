@@ -1,12 +1,13 @@
 package com.uade.tpo.gimnasio.models.entity;
 
-import com.uade.tpo.gimnasio.models.entity.PrimeraEntrega.Reserva;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
@@ -38,6 +39,7 @@ public class User {
 
     private boolean validated;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     private List<Reserva> reservas;
 

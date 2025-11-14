@@ -20,7 +20,9 @@ import java.io.IOException;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
+    // Permitir acceso sin autenticación a /auth/**
     private final RequestMatcher unSecurePaths = new AntPathRequestMatcher("/auth/**");
+
 
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
