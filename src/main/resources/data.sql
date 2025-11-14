@@ -17,14 +17,14 @@ VALUES
   (2, 'Sucursal Norte', 'Calle Falsa 123, Rosario', -32.9587, -60.6939),
   (3, 'Sucursal Sur', 'Ruta 3 Km 25, Buenos Aires', -34.815, -58.450);
 
-REPLACE INTO course (id, name, description, professor, branch, starts_at, ends_at, cupos_totales, cupos_disponibles, estado_cupo)
+REPLACE INTO course (id, name, description, professor, branch, starts_at, ends_at, cupos_totales)
 VALUES
   (1, 'Yoga para Principiantes', 'Introducción suave a posturas de yoga, respiración y técnicas de relajación',
-   'Profesora María López', 'Sede Central', '2025-09-10 08:00:00', '2025-09-10 09:00:00', 20, 20, 'DISPONIBLE'),
+   'Profesora María López', 'Sede Central', '2025-09-10 08:00:00', '2025-09-10 09:00:00', 20),
   (2, 'Entrenamiento HIIT', 'Entrenamiento de intervalos de alta intensidad para fuerza y resistencia',
-   'Profesor Juan Pérez', 'Sucursal Norte', '2025-09-12 18:00:00', '2025-09-12 19:00:00', 15, 15, 'DISPONIBLE'),
+   'Profesor Juan Pérez', 'Sucursal Norte', '2025-09-12 18:00:00', '2025-09-12 19:00:00', 15),
   (20, 'Stretch & Relax', 'Clase de estiramiento profundo y relajación',
-   'Claudia Vega', 'Sucursal Norte', '2025-10-03 08:00:00', '2025-10-03 09:00:00', 15, 15, 'DISPONIBLE');
+   'Claudia Vega', 'Sucursal Norte', '2025-10-03 08:00:00', '2025-10-03 09:00:00', 15);
 
 REPLACE INTO users (id, email, password, `name`, photo_url, `role`, validated)
 VALUES
