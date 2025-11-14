@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: gimnasio
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/gimnasio_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Argentina/Buenos_Aires
+    username: myuser
+    password: secret
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        time_zone: America/Argentina/Buenos_Aires
+
+  jackson:
+    default-property-inclusion: NON_NULL
+    time-zone: America/Argentina/Buenos_Aires
+
+  mail:
+    host: ${EMAIL_HOST:localhost}
+    port: 587
+    username: ${EMAIL_USERNAME:test@example.com}
+    password: ${EMAIL_PASSWORD:pass}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  address: 0.0.0.0
+  port: 8080
+  servlet:
+    context-path: /api
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+
+
+debug: true

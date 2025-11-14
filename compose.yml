@@ -1,0 +1,11 @@
+services:
+  mysql:
+    container_name: 'gimnasio-db-mysql'
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=gimnasio_db'
+      - 'MYSQL_USER=myuser'
+      - 'MYSQL_PASSWORD=secret'
+      - 'MYSQL_ROOT_PASSWORD=verysecret'
+    ports:
+      - '3306:3306'

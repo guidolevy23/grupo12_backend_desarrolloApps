@@ -1,0 +1,118 @@
+###
+# Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+###
+
+
+POST http://localhost:8080/api/auth/request-otp
+Content-Type: application/json
+
+{
+  "identifier": "your-email@yourdomain.com"
+}
+
+###
+POST http://localhost:8080/api/auth/verify-otp
+Content-Type: application/json
+
+{
+  "identifier": "alan.gagliero@proton.me",
+  "otp": "415961"
+}
+###
+GET http://localhost:8080/api/clases
+Content-Type: application/json
+
+###
+# Obtener historial completo de un usuario
+GET http://localhost:8080/api/historial/1
+
+###
+# Filtrar historial por rango de fechas
+POST http://localhost:8080/api/historial/filtrar
+Content-Type: application/json
+
+{
+  "usuarioId": 1,
+  "fechaInicio": "2024-01-01T00:00:00Z",
+  "fechaFin": "2024-12-31T23:59:59Z"
+}
+
+###
+# Filtrar historial del último mes
+POST http://localhost:8080/api/historial/filtrar
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1ODQ3Mzc3NiwiZXhwIjoxNzU4NTYwMTc2fQ.WvZZM5eLnBi3GurbkagOb-gIVNwvooeiFSEqbVYmUfg
+
+{
+  "usuarioId": 1,
+  "fechaInicio": "2024-11-01T00:00:00Z",
+  "fechaFin": "2024-11-30T23:59:59Z"
+}
+
+### Courses all
+GET http://localhost:8080/api/courses?size=5
+Content-Type: application/json
+
+### Courses by name
+GET http://localhost:8080/api/courses/search/byName?name=CrossFit&size=5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc1ODQ5NTA5NCwiZXhwIjoxNzU4NTgxNDk0fQ.XoBxl3ZsR-fqAZkgZQ10S9ovbqT6QvRYE_UCi6HkEFk
+
+###
+
+############# Login API
+### Register
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "alan.gagliero@proton.me",
+  "password": "pepe1234",
+  "name": "Alan"
+}
+
+### Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "alan.gagliero@proton.me",
+  "password": "test2"
+}
+
+### Login
+POST http://localhost:8080/api/auth/otp
+Content-Type: application/json
+
+{
+  "email": "alan.gagliero@proton.me",
+  "otp": "429953"
+}
+
+############# User API
+### Current Logged user
+GET http://localhost:8080/api/users/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGFuLmdhZ2xpZXJvQHByb3Rvbi5tZSIsImlhdCI6MTc1ODg4ODExNCwiZXhwIjoxNzU4OTc0NTE0fQ.4TTfi5x6qxMQJMhdPk5KPlD2XpgFM7wVVklhmVJm85Q
+
+### Update an user
+PATCH http://localhost:8080/api/users/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGFuLmdhZ2xpZXJvQHByb3Rvbi5tZSIsImlhdCI6MTc1ODg4ODExNCwiZXhwIjoxNzU4OTc0NTE0fQ.4TTfi5x6qxMQJMhdPk5KPlD2XpgFM7wVVklhmVJm85Q
+
+{
+
+  "email": "alan.gagliero@proton.me",
+  "password": "$2a$10$WMAB9OwhzQS8jCl8mhVHf.H0H43vWH80wNvesuaZM1kMHA2j0fNyK",
+  "name": "Pepe",
+  "photoUrl": "",
+  "role": "ADMIN"
+}
