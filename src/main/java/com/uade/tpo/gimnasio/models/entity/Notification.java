@@ -23,7 +23,10 @@ public class Notification {
     private User user;
 
     @Column(nullable = false)
-    private String message;
+    private String title;
+
+    @Column(nullable = false)
+    private String body;
 
     @Column(nullable = false)
     private boolean seen = false;

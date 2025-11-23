@@ -125,7 +125,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhd
 
 {
 
-  "message": "created noti"
+  "title": "created noti",
+  "body": "agalgj;lasdg;lajsld;gja"
 }
 
 ### GET notifications for use
