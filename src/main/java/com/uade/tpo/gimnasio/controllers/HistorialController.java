@@ -78,7 +78,7 @@ public class HistorialController {
         return new AsistenciaResponseDTO(
             asistencia.getId(),
             course.getName(),          // nombre del curso
-            course.getBranch(),        // sede
+            course.getBranch().getNombre(),        // sede
             fechaFormateada,           // fecha check-in
             null,                      // duración (agregá si existe en Course)
             course.getProfessor()      // profesor

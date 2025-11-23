@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "sedes")
 @Getter @Setter @NoArgsConstructor
@@ -20,4 +22,7 @@ public class Sede {
 
     private Double lat;
     private Double lng;
+
+    @OneToMany(mappedBy="branch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Course> courses;
 }

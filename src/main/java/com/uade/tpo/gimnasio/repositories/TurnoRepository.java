@@ -10,15 +10,9 @@ public interface TurnoRepository extends JpaRepository<Turno, Long> {
     // 🔹 Turnos dentro de un rango horario
     List<Turno> findByInicioBetweenOrderByInicioAsc(Instant desde, Instant hasta);
 
-    // 🔹 Filtrar por sede (branch) y rango horario
-    List<Turno> findByCourse_BranchAndInicioBetweenOrderByInicioAsc(
-            String branch, Instant desde, Instant hasta);
 
     // 🔹 Filtrar por disciplina (name) y rango horario
     List<Turno> findByCourse_NameAndInicioBetweenOrderByInicioAsc(
             String name, Instant desde, Instant hasta);
 
-    // 🔹 Filtrar por sede + disciplina + rango horario
-    List<Turno> findByCourse_BranchAndCourse_NameAndInicioBetweenOrderByInicioAsc(
-            String branch, String name, Instant desde, Instant hasta);
 }

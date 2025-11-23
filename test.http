@@ -62,9 +62,9 @@ GET http://localhost:8080/api/courses?size=5
 Content-Type: application/json
 
 ### Courses by name
-GET http://localhost:8080/api/courses/search/byName?name=CrossFit&size=5
+GET http://localhost:8080/api/courses/search/byName?name=Yoga para Principiantes
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc1ODQ5NTA5NCwiZXhwIjoxNzU4NTgxNDk0fQ.XoBxl3ZsR-fqAZkgZQ10S9ovbqT6QvRYE_UCi6HkEFk
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2MzkzMzEwNiwiZXhwIjoxNzY0MDE5NTA2fQ.fef0nY2gVoSBKntU0ugIceDSPRZix36LmCU1yTR6dvU
 
 ###
 
