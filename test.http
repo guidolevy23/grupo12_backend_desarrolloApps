@@ -84,8 +84,8 @@ POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "alan.gagliero@proton.me",
-  "password": "test2"
+  "username": "admin@root.com",
+  "password": "admin"
 }
 
 ### Login
@@ -116,3 +116,26 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGFuLmdhZ2xpZXJvQHByb3Rvb
   "photoUrl": "",
   "role": "ADMIN"
 }
+
+
+### POST notification
+POST http://localhost:8080/api/notifications
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2Mzg5NzU4MSwiZXhwIjoxNzYzOTgzOTgxfQ.gWlJhNWmThaJvPyLI2whuC0D4N6DWmCFl7ze23NULkA
+
+{
+
+  "title": "gagasdgag",
+  "body": "agalgj;lasdg;lajsld;gja"
+}
+
+### GET notifications for use
+GET http://localhost:8080/api/notifications
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2Mzg5NzU4MSwiZXhwIjoxNzYzOTgzOTgxfQ.gWlJhNWmThaJvPyLI2whuC0D4N6DWmCFl7ze23NULkA
+
+### GET notifications for use
+PUT http://localhost:8080/api/notifications/1/read
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2Mzg5NzU4MSwiZXhwIjoxNzYzOTgzOTgxfQ.gWlJhNWmThaJvPyLI2whuC0D4N6DWmCFl7ze23NULkA
+
