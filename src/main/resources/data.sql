@@ -1,16 +1,6 @@
 # Sample Database Initialization Script
 # Spring Boot lo toma automáticamente al iniciar la app
 
-SET FOREIGN_KEY_CHECKS = 0;
-
-DELETE FROM reservas;   -- 🔥 AGREGAR ESTO
-DELETE FROM otp;
-DELETE FROM users;
-DELETE FROM course;
-DELETE FROM sedes;
-
-SET FOREIGN_KEY_CHECKS = 1;
-
 REPLACE INTO sedes (id, nombre, direccion, lat, lng)
 VALUES
   (1, 'Sede Central', 'Av. Siempre Viva 742, Springfield', -34.6037, -58.3816),
@@ -26,8 +16,17 @@ VALUES
   (20, 'Stretch & Relax', 'Clase de estiramiento profundo y relajación',
    'Claudia Vega', 'Sucursal Norte', '2025-10-03 08:00:00', '2025-10-03 09:00:00');
 
-REPLACE INTO users (id, email, password, `name`, photo_url, `role`, validated)
-VALUES
-  (1, 'admin@root.com',
-   '$2a$10$WMAB9OwhzQS8jCl8mhVHf.H0H43vWH80wNvesuaZM1kMHA2j0fNyK',
-   'Admin User', '', 'ADMIN', true);
+INSERT INTO users (id, email, password, `name`, photo_url, `role`, validated)
+SELECT
+    1,
+    'admin@root.com',
+    '$2a$10$WMAB9OwhzQS8jCl8mhVHf.H0H43vWH80wNvesuaZM1kMHA2j0fNyK',
+    'Admin User',
+    '',
+    'ADMIN',
+    true
+FROM DUAL
+WHERE NOT EXISTS(
+    SELECT * FROM users WHERE id = 1
+)
+
