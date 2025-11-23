@@ -10,4 +10,5 @@ public interface AsistenciaService {
   Asistencia registrarAsistencia(Asistencia asistencia);
   List<Asistencia> historialPorUsuario(Long usuarioId);
   List<Asistencia> historialPorUsuarioConFiltros(Long usuarioId, Instant fechaInicio, Instant fechaFin);
+  Asistencia calificarAsistencia(Long asistenciaId, Integer rating, String comment);
 }

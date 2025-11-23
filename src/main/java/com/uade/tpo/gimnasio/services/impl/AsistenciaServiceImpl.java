@@ -35,5 +35,39 @@ public class AsistenciaServiceImpl implements AsistenciaService {
             return historialPorUsuario(usuarioId);
         }
     }
-}
 
+    @Override
+    public Asistencia calificarAsistencia(Long asistenciaId, Integer rating, String comment) {
+        // Validar que la asistencia existe
+        Asistencia asistencia = asistenciaRepository.findById(asistenciaId)
+                .orElseThrow(() -> new RuntimeException("Asistencia no encontrada con ID: " + asistenciaId));
+
+        // Validar rating (1-5)
+        if (rating == null || rating < 1 || rating > 5) {
+            throw new IllegalArgumentException("El rating debe estar entre 1 y 5");
+        }
+
+        // Validar y procesar comment
+        String comentarioFinal = null;
+        if (comment != null) {
+            String comentarioTrimmed = comment.trim();
+            
+            // Si después de trim está vacío, guardamos null
+            if (!comentarioTrimmed.isEmpty()) {
+                // Validar longitud máxima (500 caracteres)
+                if (comentarioTrimmed.length() > 500) {
+                    throw new IllegalArgumentException("El comentario no puede superar los 500 caracteres");
+                }
+                comentarioFinal = comentarioTrimmed;
+            }
+        }
+
+        // Actualizar la asistencia
+        asistencia.setRating(rating);
+        asistencia.setComment(comentarioFinal);
+
+        System.out.println("Calificando asistencia ID " + asistenciaId + " con rating " + rating);
+
+        return asistenciaRepository.save(asistencia);
+    }
+}

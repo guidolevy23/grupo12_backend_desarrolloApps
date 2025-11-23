@@ -6,5 +6,7 @@ public record AsistenciaResponseDTO(
     String branch,           // 🔄 antes: nombreSede
     String fecha,            // fecha formateada del check-in
     Integer durationMinutes, // 🔄 antes: duracionMinutos (ahora Integer por si es null)
-    String professor          // nombre del profesor
+    String professor,        // nombre del profesor
+    Integer rating,          // Calificación de 1 a 5 estrellas
+    String comment           // Comentario opcional sobre la clase
 ) {}

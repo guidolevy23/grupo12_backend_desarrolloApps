@@ -29,4 +29,10 @@ public class Asistencia {
 
     @Column(nullable = false)
     private Instant checkInAt;
+
+    @Column(name = "rating")
+    private Integer rating;  // Calificación de 1 a 5 estrellas (nullable)
+
+    @Column(name = "comment", length = 500)
+    private String comment;  // Comentario opcional sobre la clase (max 500 caracteres)
 }

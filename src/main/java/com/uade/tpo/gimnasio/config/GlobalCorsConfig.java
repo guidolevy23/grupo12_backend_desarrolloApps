@@ -2,53 +2,61 @@ package com.uade.tpo.gimnasio.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource; // <-- CAMBIO AQUÍ
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource; // <-- CAMBIO AQUÍ
-// import org.springframework.web.filter.CorsFilter; // Ya no se usa
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
 
 @Configuration
 public class GlobalCorsConfig {
 
-    // NOTA: El método ahora se llama corsConfigurationSource
-    // y devuelve un CorsConfigurationSource
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // 🌐 Orígenes permitidos (los mismos que tenías)
-        config.setAllowedOrigins(Arrays.asList(
-                "http://localhost:3000",
-                "http://192.168.0.146:3000",
-                "http://localhost:8081",
-                "http://192.168.0.146:8081",
-                "http://localhost:19006",
-                "http://192.168.0.146:19006",
-                "exp://192.168.0.146"
-                // Asegúrate de agregar el puerto de tu frontend web si no está
+        // 🌐 Orígenes permitidos - incluyendo todas las variantes para Expo/Android
+        config.setAllowedOriginPatterns(Arrays.asList(
+                "http://localhost:*",
+                "http://127.0.0.1:*",
+                "http://10.0.2.2:*",  // 🤖 Android Emulator específico
+                "http://192.168.*.*:*",
+                "http://10.*.*.*:*",
+                "http://172.16.*.*:*",
+                "exp://*",
+                "capacitor://*",
+                "ionic://*"
         ));
 
         // ✅ Métodos HTTP permitidos
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
-        // ✅ Headers permitidos
-        config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
+        // ✅ Headers permitidos - IMPORTANTE: usar "*" para aceptar todos
+        config.setAllowedHeaders(Arrays.asList("*"));
 
         // 🔓 Permitir credenciales
         config.setAllowCredentials(true);
 
         // ⚡ Exponer headers
-        config.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        config.setExposedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
 
-        // ⏱ Tiempo de cache
+        // ⏱ Tiempo de cache para preflight
         config.setMaxAge(3600L);
 
         // 📍 Aplicar la config globalmente
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         
-        return source; // <-- CAMBIO AQUÍ
+        return source;
+    }
+
+    // Agregar CorsFilter con alta prioridad para que se ejecute ANTES de Spring Security
+    @Bean
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    public CorsFilter corsFilter() {
+        return new CorsFilter(corsConfigurationSource());
     }
 }

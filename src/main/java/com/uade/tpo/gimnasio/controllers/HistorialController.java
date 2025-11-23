@@ -1,9 +1,11 @@
 package com.uade.tpo.gimnasio.controllers;
 
 import com.uade.tpo.gimnasio.dto.historial.AsistenciaResponseDTO;
+import com.uade.tpo.gimnasio.dto.historial.CalificarAsistenciaRequestDTO;
 import com.uade.tpo.gimnasio.dto.historial.HistorialFilterRequestDTO;
 import com.uade.tpo.gimnasio.models.entity.Asistencia;
 import com.uade.tpo.gimnasio.services.AsistenciaService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/historial")
+@CrossOrigin(origins = "*")  // Permitir CORS para desarrollo
 public class HistorialController {
 
     private final AsistenciaService asistenciaService;
@@ -81,7 +84,46 @@ public class HistorialController {
             course.getBranch(),        // sede
             fechaFormateada,           // fecha check-in
             null,                      // duración (agregá si existe en Course)
-            course.getProfessor()      // profesor
+            course.getProfessor(),     // profesor
+            asistencia.getRating(),    // rating de la clase
+            asistencia.getComment()    // comentario de la clase
         );
+    }
+
+    @PutMapping("/{asistenciaId}/calificar")
+    public ResponseEntity<AsistenciaResponseDTO> calificarAsistencia(
+            @PathVariable Long asistenciaId,
+            @Valid @RequestBody CalificarAsistenciaRequestDTO request) {
+        
+        // Validaciones de entrada
+        if (asistenciaId == null || asistenciaId <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        try {
+            // Llamar al servicio para calificar
+            Asistencia asistenciaActualizada = asistenciaService.calificarAsistencia(
+                asistenciaId, 
+                request.rating(), 
+                request.comment()
+            );
+
+            // Mapear a DTO y retornar
+            AsistenciaResponseDTO responseDTO = mapToResponseDTO(asistenciaActualizada);
+            return ResponseEntity.ok(responseDTO);
+
+        } catch (IllegalArgumentException e) {
+            // Errores de validación (rating inválido, comentario muy largo)
+            System.out.println("Error de validación: " + e.getMessage());
+            return ResponseEntity.badRequest().build();
+            
+        } catch (RuntimeException e) {
+            // Si la asistencia no existe
+            if (e.getMessage().contains("no encontrada")) {
+                return ResponseEntity.notFound().build();
+            }
+            // Otros errores de runtime
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }

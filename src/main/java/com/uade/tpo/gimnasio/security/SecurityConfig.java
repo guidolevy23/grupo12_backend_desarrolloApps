@@ -34,13 +34,14 @@ public class SecurityConfig {
         .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
         .authorizeHttpRequests((authorize) -> authorize
-            // permitir autenticación y recursos públicos
+            // permitir preflight OPTIONS globalmente PRIMERO
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            // permitir autenticación (con y sin context-path)
             .requestMatchers("/auth/**").permitAll()
-            // cubrir ambos caminos: con y sin context-path (/api)
+            .requestMatchers("/api/auth/**").permitAll()
+            // permitir recursos públicos de courses
             .requestMatchers("/api/courses/**").permitAll()
             .requestMatchers("/courses/**").permitAll()
-            // permitir preflight OPTIONS globalmente
-            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
             .anyRequest().authenticated()
         )
