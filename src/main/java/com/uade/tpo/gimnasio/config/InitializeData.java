@@ -21,7 +21,13 @@ public class InitializeData {
 
     @EventListener(ApplicationReadyEvent.class)
     public void loadData() {
-        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator(false, false, "UTF-8", new ClassPathResource("data.sql"));
-        resourceDatabasePopulator.execute(dataSource);
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+
+        populator.addScript(new ClassPathResource("data.sql"));
+        populator.setSeparator(";");              // MySQL default
+        populator.setSqlScriptEncoding("UTF-8");  // Good practice
+        populator.setIgnoreFailedDrops(true);     // Avoid errors on repeated runs
+
+        populator.execute(dataSource);
     }
 }
