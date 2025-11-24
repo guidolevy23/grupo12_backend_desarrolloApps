@@ -37,8 +37,8 @@ public class GlobalCorsConfig {
         // ✅ Headers permitidos - IMPORTANTE: usar "*" para aceptar todos
         config.setAllowedHeaders(Arrays.asList("*"));
 
-        // 🔓 Permitir credenciales
-        config.setAllowCredentials(true);
+        // 🔓 Permitir credenciales (false para compatibilidad con origin patterns)
+        config.setAllowCredentials(false);
 
         // ⚡ Exponer headers
         config.setExposedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
