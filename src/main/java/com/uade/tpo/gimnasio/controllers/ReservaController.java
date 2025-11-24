@@ -36,7 +36,7 @@ public ResponseEntity<ReservaResponseDTO> crear(@RequestBody ReservaCreateReques
             reserva.getId(),
             reserva.getEstado().name(),
             reserva.getCourse().getName(),
-            reserva.getCourse().getBranch(),
+            reserva.getCourse().getBranch().getNombre(),
             reserva.getCourse().getStartsAt() != null ? reserva.getCourse().getStartsAt().toString() : null
     );
 
@@ -60,7 +60,7 @@ public List<ReservaResponseDTO> listarPorUsuario(@PathVariable Long usuarioId) {
                     r.getId(),
                     r.getEstado().name(),
                     r.getCourse().getName(),
-                    r.getCourse().getBranch(),
+                    r.getCourse().getBranch().getNombre(),
                     r.getCourse().getStartsAt().toString()
             ))
             .toList();

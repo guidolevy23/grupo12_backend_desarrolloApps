@@ -62,9 +62,9 @@ GET http://localhost:8080/api/courses?size=5
 Content-Type: application/json
 
 ### Courses by name
-GET http://localhost:8080/api/courses/search/byName?name=CrossFit&size=5
+GET http://localhost:8080/api/courses/search/byName?name=Yoga para Principiantes
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc1ODQ5NTA5NCwiZXhwIjoxNzU4NTgxNDk0fQ.XoBxl3ZsR-fqAZkgZQ10S9ovbqT6QvRYE_UCi6HkEFk
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2MzkzMzEwNiwiZXhwIjoxNzY0MDE5NTA2fQ.fef0nY2gVoSBKntU0ugIceDSPRZix36LmCU1yTR6dvU
 
 ###
 
@@ -84,8 +84,8 @@ POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "alan.gagliero@proton.me",
-  "password": "test2"
+  "username": "admin@root.com",
+  "password": "admin"
 }
 
 ### Login
@@ -116,3 +116,43 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGFuLmdhZ2xpZXJvQHByb3Rvb
   "photoUrl": "",
   "role": "ADMIN"
 }
+
+
+### POST notification
+POST http://localhost:8080/api/notifications
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2Mzg5NzU4MSwiZXhwIjoxNzYzOTgzOTgxfQ.gWlJhNWmThaJvPyLI2whuC0D4N6DWmCFl7ze23NULkA
+
+{
+
+  "title": "gagasdgag",
+  "body": "agalgj;lasdg;lajsld;gja"
+}
+
+### GET notifications for use
+GET http://localhost:8080/api/notifications
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2Mzg5NzU4MSwiZXhwIjoxNzYzOTgzOTgxfQ.gWlJhNWmThaJvPyLI2whuC0D4N6DWmCFl7ze23NULkA
+
+### GET notifications for use
+PUT http://localhost:8080/api/notifications/1/read
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2Mzg5NzU4MSwiZXhwIjoxNzYzOTgzOTgxfQ.gWlJhNWmThaJvPyLI2whuC0D4N6DWmCFl7ze23NULkA
+
+### Reservas by userId
+GET http://localhost:8080/api/reservations/search/byUser?userId=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2MzkzMzEwNiwiZXhwIjoxNzY0MDE5NTA2fQ.fef0nY2gVoSBKntU0ugIceDSPRZix36LmCU1yTR6dvU
+
+###
+
+### Reservas by userId
+POST http://localhost:8080/api/api/reservas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2MzkzMzEwNiwiZXhwIjoxNzY0MDE5NTA2fQ.fef0nY2gVoSBKntU0ugIceDSPRZix36LmCU1yTR6dvU
+
+{
+  "usuarioId": 1,
+  "courseId": 1
+}
+###
