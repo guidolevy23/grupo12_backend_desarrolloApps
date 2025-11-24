@@ -77,13 +77,21 @@ public class HistorialController {
         String fechaFormateada = fechaLocal.format(DATE_FORMATTER);
 
         var course = asistencia.getCourse();
+        var turno = asistencia.getTurno();
+        
+        // Calcular duración en minutos desde el turno
+        Integer durationMinutes = null;
+        if (turno != null && turno.getInicio() != null && turno.getFin() != null) {
+            long seconds = turno.getFin().getEpochSecond() - turno.getInicio().getEpochSecond();
+            durationMinutes = (int) (seconds / 60);
+        }
 
         return new AsistenciaResponseDTO(
             asistencia.getId(),
             course.getName(),          // nombre del curso
             course.getBranch().getNombre(),        // sede
             fechaFormateada,           // fecha check-in
-            null,                      // duración (agregá si existe en Course)
+            durationMinutes,           // duración calculada desde turno
             course.getProfessor(),     // profesor
             asistencia.getRating(),    // rating de la clase
             asistencia.getComment()    // comentario de la clase

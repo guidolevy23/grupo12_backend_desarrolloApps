@@ -14,15 +14,15 @@ public class Asistencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false) 
+    @ManyToOne(optional = false, fetch = FetchType.EAGER) 
     @NotNull
     private User usuario;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @NotNull
     private Turno turno;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id", nullable = false)
     @NotNull
     private Course course;  // 🔄 antes: Clase clase
