@@ -44,11 +44,10 @@ public interface CourseRepository extends CrudRepository<Course, Long>, PagingAn
 
         // Buscar por sede (branch)
     @RestResource(path = "byBranch", rel = "byBranch")
-    Page<Course> findByBranchIsContainingIgnoreCase(
+    Page<Course> findByBranchNombreIsContainingIgnoreCase(
             @Param("branch") String branch,
             Pageable p
     );
-
 
 
 }
