@@ -3,7 +3,7 @@
     "id": "1",
     "titulo": "Promo Black Friday",
     "descripcion": "50% off en membresías solo hoy",
-    "imagenUrl": "vista-lateral-mujer-haciendo-ejercicio-con-pesas.jpg",
+    "imagenUrl": "https://raw.githubusercontent.com/guidolevy23/grupo12_backend_desarrolloApps/main/src/main/resources/vista-lateral-mujer-haciendo-ejercicio-con-pesas.jpg",
     "fecha": "2025-11-01",
     "tipo": "promo"
   }
