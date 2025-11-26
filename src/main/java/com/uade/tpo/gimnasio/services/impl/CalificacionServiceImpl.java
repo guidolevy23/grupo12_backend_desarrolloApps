@@ -6,14 +6,18 @@ import com.uade.tpo.gimnasio.repositories.AsistenciaRepository;
 import com.uade.tpo.gimnasio.repositories.CalificacionRepository;
 import com.uade.tpo.gimnasio.repositories.UserRepository;
 import com.uade.tpo.gimnasio.services.CalificacionService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 @Service
 public class CalificacionServiceImpl implements CalificacionService {
+
+    @Value("${app.calificaciones.period-hours:-1}")
+    private long calificacionPeriodHours;
 
     private final CalificacionRepository calificacionRepository;
     private final AsistenciaRepository asistenciaRepository;
@@ -40,10 +44,15 @@ public class CalificacionServiceImpl implements CalificacionService {
             throw new SecurityException("No autorizado para calificar esta asistencia");
         }
 
-        Instant checkIn = asistencia.getCheckInAt();
-        Instant now = Instant.now();
-        if (checkIn == null || now.isAfter(checkIn.plus(24, ChronoUnit.HOURS))) {
-            throw new IllegalStateException("El periodo para calificar (24h) expiró");
+        // Si la propiedad calificacionPeriodHours es -1 => desactivar límite
+        if (calificacionPeriodHours >= 0) {
+            if (asistencia.getTurno() == null || asistencia.getTurno().getFin() == null) {
+                throw new IllegalStateException("No se puede verificar el periodo para calificar: información de turno faltante");
+            }
+            long hoursSinceEnd = Duration.between(asistencia.getTurno().getFin(), Instant.now()).toHours();
+            if (hoursSinceEnd > calificacionPeriodHours) {
+                throw new IllegalStateException("El periodo para calificar (" + calificacionPeriodHours + "h) expiró");
+            }
         }
 
         Long turnoId = asistencia.getTurno().getId();
