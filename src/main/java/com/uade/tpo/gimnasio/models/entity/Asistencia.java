@@ -18,8 +18,7 @@ public class Asistencia {
     @NotNull
     private User usuario;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne(optional = true)
     private Turno turno;
 
     @ManyToOne(optional = false)

@@ -19,9 +19,10 @@ public class InitializeData {
         this.dataSource = dataSource;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
+    // Temporarily disabled - using Spring Boot's built-in data.sql loading instead
+    // @EventListener(ApplicationReadyEvent.class)
     public void loadData() {
-        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator(false, false, "UTF-8", new ClassPathResource("data.sql"));
-        resourceDatabasePopulator.execute(dataSource);
+        // ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator(false, false, "UTF-8", new ClassPathResource("data.sql"));
+        // resourceDatabasePopulator.execute(dataSource);
     }
 }

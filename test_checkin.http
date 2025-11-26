@@ -1,0 +1,103 @@
+### QR Code Check-In System Tests
+
+### 1. Login to get JWT token
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin@root.com",
+  "password": "admin"
+}
+
+### 2. Generate QR Code Data for Course ID 1
+GET http://localhost:8080/api/qr/courses/1/generate
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+### 3. Generate QR Code Image for Course ID 1
+GET http://localhost:8080/api/qr/courses/1/image
+Authorization: Bearer {{jwt_token}}
+
+### 4. Generate QR Code Image with Custom Session ID
+GET http://localhost:8080/api/qr/courses/1/session/TEST-SESSION-123/image
+Authorization: Bearer {{jwt_token}}
+
+### 5. Create a Reservation First (needed for check-in)
+POST http://localhost:8080/api/reservas
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "usuarioId": 1,
+  "courseId": 1
+}
+
+### 6. Check-In with Valid QR Code (replace with actual QR data from step 2)
+POST http://localhost:8080/api/reservas/check-in
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "reservaId": 1,
+  "qrCode": "{\"classId\":1,\"sessionId\":\"COURSE-1-20241123-2248\",\"timestamp\":\"2024-11-24T01:48:02.123456Z\",\"type\":\"checkin\",\"signature\":\"sample-signature\"}"
+}
+
+### 7. Try Check-In Again (should fail with 409 - already checked in)
+POST http://localhost:8080/api/reservas/check-in
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "reservaId": 1,
+  "qrCode": "{\"classId\":1,\"sessionId\":\"COURSE-1-20241123-2248\",\"timestamp\":\"2024-11-24T01:48:02.123456Z\",\"type\":\"checkin\",\"signature\":\"sample-signature\"}"
+}
+
+### 8. Check-In with Invalid QR Code (should fail with 400)
+POST http://localhost:8080/api/reservas/check-in
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "reservaId": 1,
+  "qrCode": "invalid-qr-code"
+}
+
+### 9. Check-In with Non-Existent Reservation (should fail with 404)
+POST http://localhost:8080/api/reservas/check-in
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "reservaId": 99999,
+  "qrCode": "{\"classId\":1,\"sessionId\":\"COURSE-1-20241123-2248\",\"timestamp\":\"2024-11-24T01:48:02.123456Z\",\"type\":\"checkin\",\"signature\":\"sample-signature\"}"
+}
+
+### 10. Check User History (should show the checked-in class)
+GET http://localhost:8080/api/historial/1
+Authorization: Bearer {{jwt_token}}
+
+### 11. Get User Reservations (should show checkedIn flag)
+GET http://localhost:8080/api/reservations/search/byUser?userId=1
+Authorization: Bearer {{jwt_token}}
+
+### 12. Test QR Code with Wrong Class ID (should fail)
+POST http://localhost:8080/api/reservas/check-in
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "reservaId": 1,
+  "qrCode": "{\"classId\":999,\"sessionId\":\"COURSE-999-20241123-2248\",\"timestamp\":\"2024-11-24T01:48:02.123456Z\",\"type\":\"checkin\",\"signature\":\"sample-signature\"}"
+}
+
+### 13. Test with Expired QR Code (24+ hours old)
+POST http://localhost:8080/api/reservas/check-in
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "reservaId": 1,
+  "qrCode": "{\"classId\":1,\"sessionId\":\"COURSE-1-20241122-1200\",\"timestamp\":\"2024-11-22T15:00:00.000Z\",\"type\":\"checkin\",\"signature\":\"old-signature\"}"
+}
+
+###
