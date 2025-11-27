@@ -19,10 +19,15 @@ public class InitializeData {
         this.dataSource = dataSource;
     }
 
-    // Temporarily disabled - using Spring Boot's built-in data.sql loading instead
-    // @EventListener(ApplicationReadyEvent.class)
+    @EventListener(ApplicationReadyEvent.class)
     public void loadData() {
-        // ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator(false, false, "UTF-8", new ClassPathResource("data.sql"));
-        // resourceDatabasePopulator.execute(dataSource);
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+
+        populator.addScript(new ClassPathResource("data.sql"));
+        populator.setSeparator(";");              // MySQL default
+        populator.setSqlScriptEncoding("UTF-8");  // Good practice
+        populator.setIgnoreFailedDrops(true);     // Avoid errors on repeated runs
+
+        populator.execute(dataSource);
     }
 }

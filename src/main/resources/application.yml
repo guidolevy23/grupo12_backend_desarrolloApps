@@ -53,3 +53,9 @@ logging:
 
 
 debug: true
+
+# Configuración de calificaciones
+# -1 desactiva el límite temporal; >=0 establece horas desde el fin del turno para permitir calificar
+app:
+  calificaciones:
+    period-hours: -1

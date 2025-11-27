@@ -15,7 +15,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/historial")
+@RequestMapping("/historial")
 public class HistorialController {
 
     private final AsistenciaService asistenciaService;
@@ -73,7 +73,9 @@ public class HistorialController {
         LocalDateTime fechaLocal = LocalDateTime.ofInstant(asistencia.getCheckInAt(), ZoneId.systemDefault());
         String fechaFormateada = fechaLocal.format(DATE_FORMATTER);
 
-        var course = asistencia.getCourse();
+        // Usar el Course asociado al Turno: evita inconsistencias si la tabla `asistencias`
+        // contiene una columna redundante `course_id` que puede no coincidir.
+        var course = asistencia.getTurno() != null ? asistencia.getTurno().getCourse() : asistencia.getCourse();
 
         return new AsistenciaResponseDTO(
             asistencia.getId(),
