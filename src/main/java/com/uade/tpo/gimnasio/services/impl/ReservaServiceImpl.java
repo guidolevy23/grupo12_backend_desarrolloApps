@@ -54,7 +54,11 @@ public class ReservaServiceImpl implements ReservaService {
     public void cancelarReserva(Long id) {
         var reserva = reservaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Reserva no encontrada con ID " + id));
+        cancelarReserva(reserva);
+    }
 
+    @Override
+    public void cancelarReserva(Reserva reserva) {
         reserva.setEstado(Reserva.Estado.CANCELADA);
         reservaRepository.save(reserva);
     }

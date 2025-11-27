@@ -9,6 +9,7 @@ import lombok.Setter;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,9 +29,20 @@ public class Course {
     @JoinColumn(name = "branch_id")
     @NotNull
     private Sede branch; // sede del gimnasio (ej: Palermo, Belgrano)
+
+    private Estado estado = Estado.OPEN;
+
     @NotBlank
     @NotNull
     private String professor;
     private LocalDateTime startsAt;
     private LocalDateTime endsAt;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Reserva> reservas;
+
+    public enum Estado {
+        OPEN,
+        CANCELLED
+    }
 }

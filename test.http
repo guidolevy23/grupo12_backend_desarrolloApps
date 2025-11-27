@@ -173,3 +173,11 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2NDIwNjg4NCwiZXhwIjoxNzY0MjkzMjg0fQ.-sm_LwXQ14Yauoo5rmI05AcuWgDR6jOzE8BMcwdtupo
 
 
+### POST cancel course
+POST http://localhost:8080/api/courses/2/cancel
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2NDI3OTIyMiwiZXhwIjoxNzY0MzY1NjIyfQ.ROu444LdsPAwxzKxZu65otjEy_IOyzM7Pp104hRkmHo
+
+{
+
+}
