@@ -21,13 +21,13 @@ import java.io.IOException;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    // Permitir acceso sin autenticación a /auth/** y /qr/**
+    // 🟢 RUTAS PÚBLICAS (SE MANTIENE TODO LO TUYO + TODO LO QUE PUSHEARON TUS AMIGOS)
     private final RequestMatcher unSecurePaths = new OrRequestMatcher(
-        new AntPathRequestMatcher("/auth/**"),
-        new AntPathRequestMatcher("/api/qr/**"),
-        new AntPathRequestMatcher("/qr/**")
+            new AntPathRequestMatcher("/auth/**"),
+            new AntPathRequestMatcher("/api/qr/**"),
+            new AntPathRequestMatcher("/qr/**"),
+            new AntPathRequestMatcher("/images/**")     // 👈 agregado SOLO para imágenes, NO se toca nada más
     );
-
 
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
@@ -40,9 +40,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+                                    FilterChain filterChain)
+            throws ServletException, IOException {
+
+        System.out.println("🔎 PATH LLEGANDO AL JWT FILTER: " + request.getServletPath());
+
+        // SI LA RUTA ES PÚBLICA -> NO FILTRAR
+        if (shouldNotFilter(request)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         final String authHeader = request.getHeader("Authorization");
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             unauthorized(response);
             return;
@@ -51,11 +61,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         try {
             String username = null;
             String jwt = authHeader.substring(7);
+
             if (jwtUtil.isTokenValid(jwt)) {
                 username = jwtUtil.extractUsername(jwt);
             }
+
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails;
+
                 try {
                     userDetails = userDetailsService.loadUserByUsername(username);
                 } catch (Exception e) {
@@ -66,13 +79,20 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 if (jwtUtil.isTokenValid(jwt)) {
                     UsernamePasswordAuthenticationToken authToken =
                             new UsernamePasswordAuthenticationToken(
-                                    userDetails, null, userDetails.getAuthorities()
+                                    userDetails,
+                                    null,
+                                    userDetails.getAuthorities()
                             );
-                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    authToken.setDetails(
+                            new WebAuthenticationDetailsSource()
+                                    .buildDetails(request)
+                    );
 
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }
+
         } catch (ExpiredJwtException e) {
             unauthorized(response);
             return;

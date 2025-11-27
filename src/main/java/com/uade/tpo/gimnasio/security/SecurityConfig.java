@@ -28,28 +28,40 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
-    // Habilitar CORS para que Spring Security delegue en el CorsConfigurationSource definido
-    .cors(Customizer.withDefaults())
-        .csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-        .authorizeHttpRequests((authorize) -> authorize
-            // permitir autenticación y recursos públicos
-            .requestMatchers("/auth/**").permitAll()
-            // cubrir ambos caminos: con y sin context-path (/api)
-            .requestMatchers("/api/courses/**").permitAll()
-            .requestMatchers("/courses/**").permitAll()
-            // permitir QR code endpoints (pueden ser públicos para generar QR)
-            .requestMatchers("/api/qr/**").permitAll()
-            .requestMatchers("/qr/**").permitAll()
-            // permitir preflight OPTIONS globalmente
-            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-            .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-            .anyRequest().authenticated()
-        )
-                .httpBasic(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable);
+            .cors(Customizer.withDefaults())
+            .csrf(AbstractHttpConfigurer::disable)
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+            .authorizeHttpRequests((authorize) -> authorize
+
+                // 🔥 Permitir imágenes estáticas
+                .requestMatchers("/images/**").permitAll()
+
+                // 🔥 Rutas públicas de autenticación
+                .requestMatchers("/auth/**").permitAll()
+
+                // 🔥 Rutas públicas de cursos
+                .requestMatchers("/api/courses/**").permitAll()
+                .requestMatchers("/courses/**").permitAll()
+
+                // 🔥 Rutas públicas de QR que agregaron tus amigos
+                .requestMatchers("/api/qr/**").permitAll()
+                .requestMatchers("/qr/**").permitAll()
+
+                // 🔥 Permitir preflight OPTIONS
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                // 🔥 Permitir forwards y errores internos
+                .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
+
+                // 🔥 TODO lo demás requiere autenticación
+                .anyRequest().authenticated()
+            )
+            .httpBasic(AbstractHttpConfigurer::disable)
+            .formLogin(AbstractHttpConfigurer::disable);
+
         return http.build();
     }
+
 }
