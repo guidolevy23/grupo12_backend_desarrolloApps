@@ -39,6 +39,9 @@ public class SecurityConfig {
             // cubrir ambos caminos: con y sin context-path (/api)
             .requestMatchers("/api/courses/**").permitAll()
             .requestMatchers("/courses/**").permitAll()
+            // permitir QR code endpoints (pueden ser públicos para generar QR)
+            .requestMatchers("/api/qr/**").permitAll()
+            .requestMatchers("/qr/**").permitAll()
             // permitir preflight OPTIONS globalmente
             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()

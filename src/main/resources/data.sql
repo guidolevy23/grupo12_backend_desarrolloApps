@@ -15,8 +15,8 @@ VALUES
    'Profesora María López', 1, '2025-09-10 08:00:00', '2025-09-10 09:00:00'),
   (2, 'Entrenamiento HIIT', 'Entrenamiento de intervalos de alta intensidad para fuerza y resistencia',
    'Profesor Juan Pérez', 2, '2025-09-12 18:00:00', '2025-09-12 19:00:00'),
-  (20, 'Stretch & Relax', 'Clase de estiramiento profundo y relajación',
-   'Claudia Vega', 3, '2025-10-03 08:00:00', '2025-10-03 09:00:00')
+   (20, 'Stretch & Relax', 'Clase de estiramiento profundo y relajación',
+   'Claudia Vega', 3, NOW(), DATE_ADD(NOW(), INTERVAL 1 HOUR))
 ON DUPLICATE KEY UPDATE name=VALUES(name), description=VALUES(description), professor=VALUES(professor), branch_id=VALUES(branch_id), starts_at=VALUES(starts_at), ends_at=VALUES(ends_at);
 
 
@@ -41,7 +41,6 @@ INSERT INTO turnos (id, course_id, inicio, fin, cupo_total, cupo_disponible, est
 VALUES
   (1, 1, '2025-09-10 08:00:00', '2025-09-10 09:00:00', 20, 20, 'ACTIVO'),
   (99999, 1, DATE_SUB(NOW(), INTERVAL 1 HOUR), DATE_ADD(DATE_SUB(NOW(), INTERVAL 1 HOUR), INTERVAL 1 HOUR), 20, 20, 'ACTIVO')
-
 ON DUPLICATE KEY UPDATE course_id=VALUES(course_id), inicio=VALUES(inicio), fin=VALUES(fin), cupo_total=VALUES(cupo_total), cupo_disponible=VALUES(cupo_disponible), estado=VALUES(estado);
 
 -- Insertar asistencia asociada al usuario admin (id=1) y al turno creado

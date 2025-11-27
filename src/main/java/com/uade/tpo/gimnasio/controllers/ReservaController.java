@@ -1,14 +1,19 @@
 package com.uade.tpo.gimnasio.controllers;
 
+import com.uade.tpo.gimnasio.dto.checkin.CheckInRequestDTO;
+import com.uade.tpo.gimnasio.dto.checkin.CheckInResponseDTO;
 import com.uade.tpo.gimnasio.dto.reservas.ReservaCreateRequestDTO;
 import com.uade.tpo.gimnasio.dto.reservas.ReservaResponseDTO;
 import com.uade.tpo.gimnasio.models.entity.Course;
 import com.uade.tpo.gimnasio.models.entity.Reserva;
 import com.uade.tpo.gimnasio.models.entity.User;
 import com.uade.tpo.gimnasio.repositories.ReservaRepository;
+import com.uade.tpo.gimnasio.services.CheckInService;
 import com.uade.tpo.gimnasio.services.ReservaService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +23,13 @@ import java.util.List;
 public class ReservaController {
 
     private final ReservaService reservaService;
+    private final CheckInService checkInService;
     private final ModelMapper modelMapper;
     private final ReservaRepository reservaRepository;
 
-    public ReservaController(ReservaService reservaService, ModelMapper modelMapper, ReservaRepository reservaRepository) {
+    public ReservaController(ReservaService reservaService, CheckInService checkInService, ModelMapper modelMapper, ReservaRepository reservaRepository) {
         this.reservaService = reservaService;
+        this.checkInService = checkInService;
         this.modelMapper = modelMapper;
         this.reservaRepository = reservaRepository;
     }
@@ -52,8 +59,17 @@ public ResponseEntity<ReservaResponseDTO> crear(@RequestBody ReservaCreateReques
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/check-in")
+    public ResponseEntity<CheckInResponseDTO> checkIn(
+            @Valid @RequestBody CheckInRequestDTO request,
+            Authentication authentication) {
+        
+        CheckInResponseDTO response = checkInService.processCheckIn(request, authentication.getName());
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/usuario/{usuarioId}")
-public List<ReservaResponseDTO> listarPorUsuario(@PathVariable Long usuarioId) {
+    public List<ReservaResponseDTO> listarPorUsuario(@PathVariable Long usuarioId) {
     return reservaService.listarReservasPorUsuario(usuarioId)
             .stream()
             .map(r -> new ReservaResponseDTO(

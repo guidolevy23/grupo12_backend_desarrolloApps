@@ -29,6 +29,9 @@ public class Reserva {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Estado estado = Estado.CONFIRMADA;
+    
+    @Column(nullable = false)
+    private boolean checkedIn = false;
 
     public enum Estado {
         CONFIRMADA,

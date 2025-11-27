@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -20,8 +21,12 @@ import java.io.IOException;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    // Permitir acceso sin autenticación a /auth/**
-    private final RequestMatcher unSecurePaths = new AntPathRequestMatcher("/auth/**");
+    // Permitir acceso sin autenticación a /auth/** y /qr/**
+    private final RequestMatcher unSecurePaths = new OrRequestMatcher(
+        new AntPathRequestMatcher("/auth/**"),
+        new AntPathRequestMatcher("/api/qr/**"),
+        new AntPathRequestMatcher("/qr/**")
+    );
 
 
     private final JwtUtil jwtUtil;
