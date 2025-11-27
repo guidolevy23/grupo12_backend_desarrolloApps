@@ -35,18 +35,14 @@ WHERE NOT EXISTS(
 );
 COMMIT;
 
--- Agregar un turno de ejemplo y una asistencia para que aparezca en el historial
-START TRANSACTION;
-INSERT INTO turnos (id, course_id, inicio, fin, cupo_total, cupo_disponible, estado)
-VALUES
-  (1, 1, '2025-09-10 08:00:00', '2025-09-10 09:00:00', 20, 20, 'ACTIVO'),
-  (99999, 1, DATE_SUB(NOW(), INTERVAL 1 HOUR), DATE_ADD(DATE_SUB(NOW(), INTERVAL 1 HOUR), INTERVAL 1 HOUR), 20, 20, 'ACTIVO')
-ON DUPLICATE KEY UPDATE course_id=VALUES(course_id), inicio=VALUES(inicio), fin=VALUES(fin), cupo_total=VALUES(cupo_total), cupo_disponible=VALUES(cupo_disponible), estado=VALUES(estado);
 
--- Insertar asistencia asociada al usuario admin (id=1) y al turno creado
-INSERT INTO asistencias (id, usuario_id, turno_id, course_id, check_in_at)
-VALUES
-  (1, 1, 1, 1, '2025-09-10 08:05:00'),
-  (99999, 1, 99999, 1, DATE_SUB(NOW(), INTERVAL 30 MINUTE))
-ON DUPLICATE KEY UPDATE check_in_at=VALUES(check_in_at);
-COMMIT;
+
+-- -- Agregar un turno de ejemplo y una asistencia para que aparezca en el historial
+-- START TRANSACTION;
+-- -- Insertar asistencia asociada al usuario admin (id=1) y al turno creado
+-- INSERT INTO asistencias (id, usuario_id, reseva_id, check_in_at)
+-- VALUES
+--   (1, 1,  1, '2025-09-10 08:05:00'),
+--   (99999, 1, 20, DATE_SUB(NOW(), INTERVAL 30 MINUTE))
+-- ON DUPLICATE KEY UPDATE check_in_at=VALUES(check_in_at);
+-- COMMIT;

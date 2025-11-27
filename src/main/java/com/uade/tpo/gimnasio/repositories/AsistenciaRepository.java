@@ -15,5 +15,5 @@ public interface AsistenciaRepository extends JpaRepository<Asistencia, Long> {
     List<Asistencia> findByUsuarioId(Long usuarioId);
     
     // Check if user already checked in for a specific course
-    boolean existsByUsuario_IdAndCourse_Id(Long usuarioId, Long courseId);
+    boolean existsByUsuario_IdAndReserva_Id(Long usuarioId, Long reservaId);
 }

@@ -26,7 +26,7 @@ public class CalificacionController {
         try {
             var user = userRepository.findByEmail(authentication.getName()).orElseThrow();
             Calificacion c = calificacionService.createOrUpdate(user.getId(), body.asistenciaId(), body.estrellas(), body.comentario());
-            var resp = new CalificacionResponseDTO(c.getId(), c.getTurno().getId(), c.getEstrellas(), c.getComentario());
+            var resp = new CalificacionResponseDTO(c.getId(), c.getCourse().getId(), c.getEstrellas(), c.getComentario());
             return ResponseEntity.ok(resp);
         } catch (IllegalArgumentException | IllegalStateException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -43,7 +43,7 @@ public class CalificacionController {
             var user = userRepository.findByEmail(authentication.getName()).orElseThrow();
             var list = calificacionService.findByUsuarioId(user.getId());
             var resp = list.stream()
-                    .map(c -> new CalificacionResponseDTO(c.getId(), c.getTurno().getId(), c.getEstrellas(), c.getComentario()))
+                    .map(c -> new CalificacionResponseDTO(c.getId(), c.getCourse().getId(), c.getEstrellas(), c.getComentario()))
                     .toList();
             return ResponseEntity.ok(resp);
         } catch (Exception e) {

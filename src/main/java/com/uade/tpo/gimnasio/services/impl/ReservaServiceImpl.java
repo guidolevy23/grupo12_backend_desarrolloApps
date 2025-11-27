@@ -1,5 +1,6 @@
 package com.uade.tpo.gimnasio.services.impl;
 
+import com.uade.tpo.gimnasio.models.entity.Asistencia;
 import com.uade.tpo.gimnasio.models.entity.Course;
 import com.uade.tpo.gimnasio.models.entity.Reserva;
 import com.uade.tpo.gimnasio.repositories.CourseRepository;
@@ -60,7 +61,8 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     public List<Reserva> listarReservasPorUsuario(Long usuarioId) {
-        return reservaRepository.findByUsuarioId(usuarioId);
+        List<Reserva> reservas =  reservaRepository.findByUsuario_IdAndAsistencia_Id(usuarioId, null);
+        return reservas;
     }
 }
 

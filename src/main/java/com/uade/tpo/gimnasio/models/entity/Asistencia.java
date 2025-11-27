@@ -18,13 +18,9 @@ public class Asistencia {
     @NotNull
     private User usuario;
 
-    @ManyToOne(optional = true)
-    private Turno turno;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "course_id", nullable = false)
+    @OneToOne(optional = false)
     @NotNull
-    private Course course;  // 🔄 antes: Clase clase
+    private Reserva reserva;  // 🔄 antes: Clase clase
 
     @Column(nullable = false)
     private Instant checkInAt;

@@ -73,9 +73,7 @@ public class HistorialController {
         LocalDateTime fechaLocal = LocalDateTime.ofInstant(asistencia.getCheckInAt(), ZoneId.systemDefault());
         String fechaFormateada = fechaLocal.format(DATE_FORMATTER);
 
-        // Usar el Course asociado al Turno: evita inconsistencias si la tabla `asistencias`
-        // contiene una columna redundante `course_id` que puede no coincidir.
-        var course = asistencia.getTurno() != null ? asistencia.getTurno().getCourse() : asistencia.getCourse();
+        var course = asistencia.getReserva().getCourse();
 
         return new AsistenciaResponseDTO(
             asistencia.getId(),

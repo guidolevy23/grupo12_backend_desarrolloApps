@@ -8,7 +8,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "calificaciones",
-       uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id","turno_id"}))
+       uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id", "course_id"}))
 @Getter @Setter @NoArgsConstructor
 public class Calificacion {
 
@@ -19,7 +19,7 @@ public class Calificacion {
     private User usuario;
 
     @ManyToOne(optional = false)
-    private Turno turno;
+    private Course course;
 
     @Min(1) @Max(5)
     @Column(nullable = false)

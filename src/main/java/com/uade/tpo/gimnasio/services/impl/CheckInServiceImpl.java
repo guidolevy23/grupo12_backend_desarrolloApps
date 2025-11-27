@@ -64,7 +64,7 @@ public class CheckInServiceImpl implements CheckInService {
         }
         
         // Alternative check using asistencias table
-        if (asistenciaRepository.existsByUsuario_IdAndCourse_Id(user.getId(), reserva.getCourse().getId())) {
+        if (asistenciaRepository.existsByUsuario_IdAndReserva_Id(user.getId(), reserva.getId())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Check-in already completed for this reservation");
         }
         
@@ -81,6 +81,7 @@ public class CheckInServiceImpl implements CheckInService {
         
         // 8. Update reservation status
         reserva.setCheckedIn(true);
+        reserva.setAsistencia(asistencia);
         reservaRepository.save(reserva);
         
         // 9. Return success response
@@ -121,13 +122,8 @@ public class CheckInServiceImpl implements CheckInService {
     private Asistencia createAsistenciaRecord(User user, Reserva reserva) {
         Asistencia asistencia = new Asistencia();
         asistencia.setUsuario(user);
-        asistencia.setCourse(reserva.getCourse());
+        asistencia.setReserva(reserva);
         asistencia.setCheckInAt(Instant.now());
-        
-        // Note: The current Asistencia entity has a Turno field which might not be used
-        // in the new system. We'll set it to null for now, but you might want to 
-        // remove this field or create a Turno record if needed
-        asistencia.setTurno(null);
         
         return asistenciaRepository.save(asistencia);
     }

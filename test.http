@@ -148,14 +148,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhd
 ### Reservas by userId
 GET http://localhost:8080/api/reservations/search/byUser?userId=1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2MzkzMzEwNiwiZXhwIjoxNzY0MDE5NTA2fQ.fef0nY2gVoSBKntU0ugIceDSPRZix36LmCU1yTR6dvU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2NDIwNjg4NCwiZXhwIjoxNzY0MjkzMjg0fQ.-sm_LwXQ14Yauoo5rmI05AcuWgDR6jOzE8BMcwdtupo
 
 ###
 
 ### Reservas by userId
-POST http://localhost:8080/api/api/reservas
+GET http://localhost:8080/api/api/reservas/usuario/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2MzkzMzEwNiwiZXhwIjoxNzY0MDE5NTA2fQ.fef0nY2gVoSBKntU0ugIceDSPRZix36LmCU1yTR6dvU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2NDIwNjg4NCwiZXhwIjoxNzY0MjkzMjg0fQ.-sm_LwXQ14Yauoo5rmI05AcuWgDR6jOzE8BMcwdtupo
 
 {
   "usuarioId": 1,
@@ -166,3 +166,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhd
 DELETE http://localhost:8080/api/api/reservas/4
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2MzkzMzEwNiwiZXhwIjoxNzY0MDE5NTA2fQ.fef0nY2gVoSBKntU0ugIceDSPRZix36LmCU1yTR6dvU
+
+### generate qr
+GET http://localhost:8080/api/qr/courses/2/image
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2NDIwNjg4NCwiZXhwIjoxNzY0MjkzMjg0fQ.-sm_LwXQ14Yauoo5rmI05AcuWgDR6jOzE8BMcwdtupo
+
+

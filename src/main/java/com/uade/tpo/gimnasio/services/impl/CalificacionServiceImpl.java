@@ -46,18 +46,18 @@ public class CalificacionServiceImpl implements CalificacionService {
 
         // Si la propiedad calificacionPeriodHours es -1 => desactivar límite
         if (calificacionPeriodHours >= 0) {
-            if (asistencia.getTurno() == null || asistencia.getTurno().getFin() == null) {
+            if (asistencia.getReserva().getCourse() == null || asistencia.getReserva().getCourse().getEndsAt() == null) {
                 throw new IllegalStateException("No se puede verificar el periodo para calificar: información de turno faltante");
             }
-            long hoursSinceEnd = Duration.between(asistencia.getTurno().getFin(), Instant.now()).toHours();
+            long hoursSinceEnd = Duration.between(asistencia.getReserva().getCourse().getEndsAt(), Instant.now()).toHours();
             if (hoursSinceEnd > calificacionPeriodHours) {
                 throw new IllegalStateException("El periodo para calificar (" + calificacionPeriodHours + "h) expiró");
             }
         }
 
-        Long turnoId = asistencia.getTurno().getId();
+        Long courseId = asistencia.getReserva().getCourse().getId();
 
-        Optional<Calificacion> existing = calificacionRepository.findByUsuario_IdAndTurno_Id(usuarioId, turnoId);
+        Optional<Calificacion> existing = calificacionRepository.findByUsuario_IdAndCourse_Id(usuarioId, courseId);
         Calificacion c;
         if (existing.isPresent()) {
             c = existing.get();
@@ -66,7 +66,7 @@ public class CalificacionServiceImpl implements CalificacionService {
         } else {
             c = new Calificacion();
             c.setUsuario(asistencia.getUsuario());
-            c.setTurno(asistencia.getTurno());
+            c.setCourse(asistencia.getReserva().getCourse());
             c.setEstrellas(estrellas);
             c.setComentario(comentario);
         }
@@ -75,8 +75,8 @@ public class CalificacionServiceImpl implements CalificacionService {
     }
 
     @Override
-    public Optional<Calificacion> findByUsuarioIdAndTurnoId(Long usuarioId, Long turnoId) {
-        return calificacionRepository.findByUsuario_IdAndTurno_Id(usuarioId, turnoId);
+    public Optional<Calificacion> findByUsuarioIdAndTurnoId(Long usuarioId, Long courseId) {
+        return calificacionRepository.findByUsuario_IdAndCourse_Id(usuarioId, courseId);
     }
 
     @Override

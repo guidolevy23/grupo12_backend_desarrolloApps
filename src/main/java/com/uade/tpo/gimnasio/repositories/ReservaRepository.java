@@ -16,7 +16,6 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "reservas", path = "reservations", excerptProjection = ReservaProjection.class)
 public interface ReservaRepository extends CrudRepository<Reserva, Long> {
-    // boolean existsByUsuario_IdAndTurno_Id(Long usuarioId, Long turnoId);
 
     List<Reserva> findByUsuario_IdAndEstadoInOrderByIdDesc(Long usuarioId, Collection<Estado> estados);
 
@@ -24,7 +23,7 @@ public interface ReservaRepository extends CrudRepository<Reserva, Long> {
     List<Reserva> findByUsuario_IdAndEstadoOrderByIdDesc(Long usuarioId, Estado estado);
 
     @RestResource(path = "byUser", rel = "byUser")
-    List<Reserva> findByUsuarioId(@Param("userId") Long usuarioId);
+    List<Reserva> findByUsuario_IdAndAsistencia_Id(@Param("userId") Long usuarioId, Long asistenciaId);
 
     List<Reserva> findByCourseId(Long courseId);
     long countByCourseId(Long courseId);

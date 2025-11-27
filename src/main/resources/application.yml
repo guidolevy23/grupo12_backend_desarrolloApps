@@ -3,7 +3,7 @@ spring:
     name: gimnasio
 
   datasource:
-    url: jdbc:mysql://localhost:3307/gimnasio_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Argentina/Buenos_Aires
+    url: jdbc:mysql://localhost:3306/gimnasio_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Argentina/Buenos_Aires
     username: myuser
     password: secret
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -54,8 +54,6 @@ logging:
 
 debug: true
 
-# Configuración de calificaciones
-# -1 desactiva el límite temporal; >=0 establece horas desde el fin del turno para permitir calificar
 app:
   calificaciones:
     period-hours: -1
