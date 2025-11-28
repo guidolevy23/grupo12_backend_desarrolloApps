@@ -16,7 +16,7 @@ VALUES
   (2, 'Entrenamiento HIIT', 'Entrenamiento de intervalos de alta intensidad para fuerza y resistencia',
    'Profesor Juan Pérez', 2, '2025-09-12 18:00:00', '2025-09-12 19:00:00'),
    (20, 'Stretch & Relax', 'Clase de estiramiento profundo y relajación',
-   'Claudia Vega', 3, NOW(), DATE_ADD(NOW(), INTERVAL 1 HOUR))
+   'Claudia Vega', 3, DATE_SUB(NOW(), INTERVAL 10 MINUTE), DATE_ADD(NOW(), INTERVAL 2 HOUR))
 ON DUPLICATE KEY UPDATE name=VALUES(name), description=VALUES(description), professor=VALUES(professor), branch_id=VALUES(branch_id), starts_at=VALUES(starts_at), ends_at=VALUES(ends_at);
 
 
