@@ -9,14 +9,14 @@ VALUES
 ON DUPLICATE KEY UPDATE nombre=VALUES(nombre), direccion=VALUES(direccion), lat=VALUES(lat), lng=VALUES(lng);
 
 
-INSERT INTO course (id, name, description, professor, branch_id, starts_at, ends_at)
+INSERT INTO course (id, name, description, professor, branch_id, starts_at, ends_at, notified)
 VALUES
   (1, 'Yoga para Principiantes', 'Introducción suave a posturas de yoga, respiración y técnicas de relajación',
-   'Profesora María López', 1, '2025-09-10 08:00:00', '2025-09-10 09:00:00'),
+   'Profesora María López', 1, '2025-11-28 20:00:00', '2025-11-28 21:00:00',false),
   (2, 'Entrenamiento HIIT', 'Entrenamiento de intervalos de alta intensidad para fuerza y resistencia',
-   'Profesor Juan Pérez', 2, '2025-09-12 18:00:00', '2025-09-12 19:00:00'),
+   'Profesor Juan Pérez', 2, '2025-11-28 21:00:00', '2025-11-28 22:00:00', false),
    (20, 'Stretch & Relax', 'Clase de estiramiento profundo y relajación',
-   'Claudia Vega', 3, DATE_SUB(NOW(), INTERVAL 10 MINUTE), DATE_ADD(NOW(), INTERVAL 2 HOUR))
+   'Claudia Vega', 3, '2025-11-28 22:00:00', '2025-11-28 23:00:00', false)
 ON DUPLICATE KEY UPDATE name=VALUES(name), description=VALUES(description), professor=VALUES(professor), branch_id=VALUES(branch_id), starts_at=VALUES(starts_at), ends_at=VALUES(ends_at);
 
 

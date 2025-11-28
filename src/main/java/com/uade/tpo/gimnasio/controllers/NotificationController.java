@@ -45,7 +45,7 @@ public class NotificationController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         User user = userRepository.findByEmail(userName).orElseThrow();
-        notificationService.createNotification(user, body.title(), body.body());
+        notificationService.createNotification(user, body.title(), body.body(), null);
         return ResponseEntity.noContent().build();
     }
 }

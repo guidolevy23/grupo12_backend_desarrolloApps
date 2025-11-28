@@ -49,5 +49,5 @@ public interface CourseRepository extends CrudRepository<Course, Long>, PagingAn
             Pageable p
     );
 
-
+    List<Course> findByStartsAtBetweenAndNotifiedIsFalse(LocalDateTime startsAtAfter, LocalDateTime startsAtBefore);
 }

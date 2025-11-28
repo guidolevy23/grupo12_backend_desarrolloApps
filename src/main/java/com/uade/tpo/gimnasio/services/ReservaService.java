@@ -10,6 +10,7 @@ import java.util.List;
 public interface ReservaService {
     Reserva crearReserva(Long usuarioId, Long courseId);
     void cancelarReserva(Long id);
+    void cancelarReserva(Reserva reserva);
     List<Reserva> listarReservasPorUsuario(Long usuarioId);
 }
 

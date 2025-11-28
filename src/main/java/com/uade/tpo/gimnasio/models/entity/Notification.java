@@ -25,7 +25,10 @@ public class Notification {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    private String url = null;
+
+    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
 
     @Column(nullable = false)
