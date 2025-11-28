@@ -26,10 +26,6 @@ public class Reserva {
     @NotNull
     private Course course;
 
-    @OneToOne
-    @JoinColumn(name = "asistencia_id")
-    private Asistencia asistencia;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Estado estado = Estado.CONFIRMADA;

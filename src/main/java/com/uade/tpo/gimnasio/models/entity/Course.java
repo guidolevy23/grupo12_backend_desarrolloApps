@@ -41,6 +41,8 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Reserva> reservas;
 
+    Boolean notified = false;
+
     public enum Estado {
         OPEN,
         CANCELLED

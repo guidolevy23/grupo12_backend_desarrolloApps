@@ -127,12 +127,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGFuLmdhZ2xpZXJvQHByb3Rvb
 ### POST notification
 POST http://localhost:8080/api/notifications
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2Mzg5NzU4MSwiZXhwIjoxNzYzOTgzOTgxfQ.gWlJhNWmThaJvPyLI2whuC0D4N6DWmCFl7ze23NULkA
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkByb290LmNvbSIsImlhdCI6MTc2NDI3OTIyMiwiZXhwIjoxNzY0MzY1NjIyfQ.ROu444LdsPAwxzKxZu65otjEy_IOyzM7Pp104hRkmHo
 
 {
 
-  "title": "gagasdgag",
-  "body": "agalgj;lasdg;lajsld;gja"
+  "title": "test",
+  "body": "lajglajsl;ga;sjdg;lkaj"
 }
 
 ### GET notifications for use

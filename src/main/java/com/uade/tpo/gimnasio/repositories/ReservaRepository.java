@@ -23,7 +23,7 @@ public interface ReservaRepository extends CrudRepository<Reserva, Long> {
     List<Reserva> findByUsuario_IdAndEstadoOrderByIdDesc(Long usuarioId, Estado estado);
 
     @RestResource(path = "byUser", rel = "byUser")
-    List<Reserva> findByUsuario_IdAndAsistencia_Id(@Param("userId") Long usuarioId, Long asistenciaId);
+    List<Reserva> findByUsuario_IdAndCheckedInIsFalse(@Param("userId") Long usuarioId);
 
     List<Reserva> findByCourseId(Long courseId);
     long countByCourseId(Long courseId);
