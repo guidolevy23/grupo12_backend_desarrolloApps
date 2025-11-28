@@ -9,15 +9,15 @@ VALUES
 ON DUPLICATE KEY UPDATE nombre=VALUES(nombre), direccion=VALUES(direccion), lat=VALUES(lat), lng=VALUES(lng);
 
 
-INSERT INTO course (id, name, description, professor, branch_id, starts_at, ends_at)
+INSERT INTO course (id, name, description, professor, branch_id, starts_at, ends_at, notified)
 VALUES
   (1, 'Yoga para Principiantes', 'Introducción suave a posturas de yoga, respiración y técnicas de relajación',
-   'Profesora María López', 1, '2025-09-10 08:00:00', '2025-09-10 09:00:00'),
+   'Profesora María López', 1, '2025-09-10 08:00:00', '2025-09-10 09:00:00', false),
   (2, 'Entrenamiento HIIT', 'Entrenamiento de intervalos de alta intensidad para fuerza y resistencia',
-   'Profesor Juan Pérez', 2, '2025-09-12 18:00:00', '2025-09-12 19:00:00'),
+   'Profesor Juan Pérez', 2, '2025-11-27 20:50:00', '2025-11-27 21:50:00', false),
    (20, 'Stretch & Relax', 'Clase de estiramiento profundo y relajación',
-   'Claudia Vega', 3, NOW(), DATE_ADD(NOW(), INTERVAL 1 HOUR))
-ON DUPLICATE KEY UPDATE name=VALUES(name), description=VALUES(description), professor=VALUES(professor), branch_id=VALUES(branch_id), starts_at=VALUES(starts_at), ends_at=VALUES(ends_at);
+   'Claudia Vega', 3, NOW(), DATE_ADD(NOW(), INTERVAL 1 HOUR), false)
+ON DUPLICATE KEY UPDATE name=VALUES(name), description=VALUES(description), professor=VALUES(professor), branch_id=VALUES(branch_id), starts_at=VALUES(starts_at), ends_at=VALUES(ends_at), notified=VALUES(notified);
 
 
 INSERT INTO users (id, email, password, `name`, photo_url, `role`, validated)

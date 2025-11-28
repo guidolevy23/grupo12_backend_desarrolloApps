@@ -81,7 +81,6 @@ public class CheckInServiceImpl implements CheckInService {
         
         // 8. Update reservation status
         reserva.setCheckedIn(true);
-        reserva.setAsistencia(asistencia);
         reservaRepository.save(reserva);
         
         // 9. Return success response

@@ -65,7 +65,7 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     public List<Reserva> listarReservasPorUsuario(Long usuarioId) {
-        List<Reserva> reservas =  reservaRepository.findByUsuario_IdAndAsistencia_Id(usuarioId, null);
+        List<Reserva> reservas =  reservaRepository.findByUsuario_IdAndCheckedInIsFalse(usuarioId);
         return reservas;
     }
 }
